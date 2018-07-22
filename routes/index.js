@@ -2,6 +2,8 @@
 
 const express = require('express')
 const userController = require('../controllers/user')
+const linkController = require('../controllers/link')
+
 const api = express.Router()
 
 
@@ -15,6 +17,19 @@ api.post('/user', userController.saveUser)
 api.put('/user/:id', userController.updateUser)
 //Borrar usuario
 api.delete('/user/:id', userController.deleteUser)
+
+
+
+//Devuelve solo un  link
+api.get('/link/:id', linkController.getLink)
+//Devuelve todos los links
+api.get('/link',linkController.getLinks)
+//Crear un link
+api.post('/link', linkController.saveLink)
+//Actualizar link
+api.put('/link/:id', linkController.updateLink)
+//Borrar link
+api.delete('/link/:id', linkController.deleteLink)
 
 
 api.get('*', function(req, res){
