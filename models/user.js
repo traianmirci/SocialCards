@@ -14,13 +14,12 @@ const UserSchema = new mongoose.Schema({
     biography: String,
     userUrl: String,
     occupation: { type: String, enum: ['Student','Developer']},
-    country: { type: String, enum: ['Spain','USA','France']},
-    links: [String]
+    country: { type: String, enum: ['Spain','USA','France']}
 })
 
-UserSchema.pre('save', (next)=>{
+UserSchema.pre('save', function(next){
     let user = this
-    //if(!user.isModified('password')) return next()
+    if(!user.isModified('password')) return next()
 
     bcrypt.genSalt(10,(err,salt)=>{
         if(err) return next(err)

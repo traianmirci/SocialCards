@@ -7,13 +7,17 @@ function saveUser(req,res){
     console.log(req.body)
 
     let user = new User();
+
     user.name = req.body.name;
+    user.email = req.body.email;
+    user.password = req.body.password
+    user.signUpDate = req.body.signUpDate
+    user.lastLogin = req.body.lastLogin
     user.picture = req.body.picture;
     user.biography = req.body.biography;
     user.userUrl = req.body.userUrl;
     user.occupation = req.body.occupation;
     user.country = req.body.country;
-    user.userUrl = req.body.userUrl;
 
     for (e in req.body.links){
         user.links.push(e)
@@ -22,9 +26,11 @@ function saveUser(req,res){
     user.save((err, userStored)=>{
         if (err){
             res.status(500).send({message: `Error al guardar el usuario ${err}`})
+        }else{
+            res.status(200).send({user: userStored})
         }
 
-        res.status(200).send({user: userStored})
+        
     })
 }
 
@@ -39,6 +45,7 @@ function getUser(req,res){
         res.status(200).send({user})
     })
 }
+
 
 function getUsers(req,res){
     User.find({}, (err, users)=>{
