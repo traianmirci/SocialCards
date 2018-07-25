@@ -18,6 +18,10 @@ api.post('/user', userController.saveUser)
 api.put('/user/:id', userController.updateUser)
 //Borrar usuario
 api.delete('/user/:id', userController.deleteUser)
+//signup
+
+api.post('/signUp', userController.signUp)
+api.post('/signIn', userController.signIn)
 
 
 
@@ -36,6 +40,7 @@ api.delete('/link/:id', linkController.deleteLink)
 //privados
 api.get('/edituser', auth.isAuth, function(req,res){
     res.status(200).send({message: 'Tienes permiso'})
+
 })
 
 api.get('*', function(req, res){
