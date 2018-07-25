@@ -3,6 +3,7 @@
 const express = require('express')
 const userController = require('../controllers/user')
 const linkController = require('../controllers/link')
+const auth = require('../middlewares/auth')
 
 const api = express.Router()
 
@@ -31,6 +32,11 @@ api.put('/link/:id', linkController.updateLink)
 //Borrar link
 api.delete('/link/:id', linkController.deleteLink)
 
+
+//privados
+api.get('/edituser', auth.isAuth, function(req,res){
+    res.status(200).send({message: 'Tienes permiso'})
+})
 
 api.get('*', function(req, res){
     res.status(404).send('Petición incorrecta');
