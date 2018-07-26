@@ -9,6 +9,7 @@ function saveLink(req,res){
     link.url = req.body.url;
     link.clicks = req.body.clicks;
     link.active = req.body.active;
+    link.user = req.body.user;
 
     link.save((err, linkStored)=>{
         if (err){
@@ -63,10 +64,21 @@ function deleteLink(req,res){
     })
 }
 
+function getLinksUser(req,res){
+    let idUser = req.params.id;
+    console.log('busco',idUser)
+    Link.find({user: idUser},(err,links)=>{
+        if (err) res.send(500).send(`Links no encontrados ${err}`)
+        res.status(200).send(links)
+    });
+}
+
+
 module.exports = {
     getLink,
     getLinks,
     updateLink,
     deleteLink,
-    saveLink
+    saveLink,
+    getLinksUser
 }

@@ -35,6 +35,8 @@ api.post('/link', linkController.saveLink)
 api.put('/link/:id', linkController.updateLink)
 //Borrar link
 api.delete('/link/:id', linkController.deleteLink)
+//devuelve los links de un email
+api.get('/linksUsuario/:id', linkController.getLinksUser)
 
 
 //privados
