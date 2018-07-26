@@ -1,3 +1,44 @@
-<p>
-  user works!
-</p>
+<h1>Hola {{name}}</h1>
+<ul>
+  <li>nombre: {{name}}</li>
+  <li>email: {{email}}</li>
+  <li>signUpDate: {{signUpDate}}</li>
+</ul>
+
+<h1>Edit user</h1>
+<form>
+  <div>
+    <label for="name">Name</label><br>
+    <input type="text" [(ngModel)]="name" name="name">
+  </div>
+  <div>
+    <label for="email">Email</label><br>
+    <input type="text" [(ngModel)]="email" name="email">
+  </div>
+  <div>
+    <label for="biography">Biography</label><br>
+    <input type="text" [(ngModel)]="biography" name="biography">
+    </div>
+  <div>
+      <label for="userUrl">User url</label><br>
+      <input type="text" [(ngModel)]="userUrl" name="userUrl">
+    </div>
+</form>
+
+<h1>urls</h1>
+
+<button (click) = "onClick()">Click me</button>
+
+<ul>
+  <li *ngFor="let url of links;let i = index">
+    {{i + 1}}{{url}} <button (click)="deleteLink(url)">X</button>
+  </li>
+</ul>
+
+
+<form (submit) = "addLink(url.value)">
+  <div>
+    <label for="link">Link</label>
+    <input type="text" #url>
+  </div>
+</form>
