@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DataService } from '../../services/data.service';
 
 @Component({
   selector: 'app-user',
@@ -19,12 +20,14 @@ export class UserComponent implements OnInit {
 
   links: String[];
 
-  constructor() { }
+  constructor(private dataService:DataService) { }
 
   ngOnInit() {
     this.name = 'Traian';
     this.links = ['url','url2','url3','url4','url5'];
     this.email = "traian@gmail.com";
+
+    this.dataService.getUser().subscribe((users)=>{console.log(users)})
   }
 
   onClick(){
