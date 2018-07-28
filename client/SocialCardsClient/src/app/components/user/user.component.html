@@ -3,31 +3,35 @@
   <li>nombre: {{name}}</li>
   <li>email: {{email}}</li>
   <li>signUpDate: {{signUpDate}}</li>
-</ul>
-
-<h1>Edit user</h1>
-<form>
-  <div>
-    <label for="name">Name</label><br>
-    <input type="text" [(ngModel)]="name" name="name">
-  </div>
-  <div>
-    <label for="email">Email</label><br>
-    <input type="text" [(ngModel)]="email" name="email">
-  </div>
-  <div>
-    <label for="biography">Biography</label><br>
-    <input type="text" [(ngModel)]="biography" name="biography">
-    </div>
-  <div>
-      <label for="userUrl">User url</label><br>
-      <input type="text" [(ngModel)]="userUrl" name="userUrl">
-    </div>
-</form>
-
-<h1>urls</h1>
+</ul>.
 
 <button (click) = "onClick()">Click me</button>
+<button (click) = "toggleEdit()">Edit user</button>
+
+<div *ngIf=isEdit>
+  <h1>Edit user</h1>
+  <form>
+    <div>
+      <label for="name">Name</label><br>
+      <input type="text" [(ngModel)]="name" name="name">
+    </div>
+    <div>
+      <label for="email">Email</label><br>
+      <input type="text" [(ngModel)]="email" name="email">
+    </div>
+    <div>
+      <label for="biography">Biography</label><br>
+      <input type="text" [(ngModel)]="biography" name="biography">
+      </div>
+    <div>
+        <label for="userUrl">User url</label><br>
+        <input type="text" [(ngModel)]="userUrl" name="userUrl">
+      </div>
+  </form>
+</div>
+<h1>urls</h1>
+
+
 
 <ul>
   <li *ngFor="let url of links;let i = index">
@@ -42,3 +46,12 @@
     <input type="text" #url>
   </div>
 </form>
+
+<h1>Links del usuario</h1>
+
+<div *ngFor="let link of links">
+  <h4>{{link.name}}</h4>
+  <p>{{link.url}}</p>
+</div>
+
+

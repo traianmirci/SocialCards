@@ -7,6 +7,7 @@ import { DataService } from '../../services/data.service';
   styleUrls: ['./user.component.css']
 })
 export class UserComponent implements OnInit {
+  id: string;
   name: String;
   email:  String;
   password: String;
@@ -18,22 +19,25 @@ export class UserComponent implements OnInit {
   occupation: { type: String, enum: ['Student','Developer']};
   country: { type: String, enum: ['Spain','USA','France']};
 
-  links: String[];
+  links: Link[];
+
+  isEdit:boolean = false;
 
   constructor(private dataService:DataService) { }
 
   ngOnInit() {
     this.name = 'Traian';
-    this.links = ['url','url2','url3','url4','url5'];
     this.email = "traian@gmail.com";
+    this.id = "5b5a5998be57931458f22886";
+     
 
     this.dataService.getUser().subscribe((users)=>{console.log(users)})
+    this.dataService.getLinksUser(this.id).subscribe((links)=>{this.links = links;console.log(links)})
   }
 
   onClick(){
     console.log('Hola')
     this.name = "nombre cambiado"
-    this.links.push("nuevo url introducido")
   }
 
   addLink(link){
@@ -51,6 +55,17 @@ export class UserComponent implements OnInit {
     }
   }
 
+  toggleEdit(){
+    this.isEdit = !this.isEdit;
+  }
+
 }
 
 
+interface Link{
+  name: String,
+  url: string,
+  clicks: [{visits: Number, date:Date}]
+  publicationDate: Date,
+  user: UserComponent
+}

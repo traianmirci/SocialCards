@@ -14,7 +14,12 @@ export class DataService {
   }
 
   getUser(){
-    return this.http.get('http://localhost:3000/api/user/5b561f16f4e3d30a68754113')
+    return this.http.get('http://localhost:3000/api/user/5b5a5998be57931458f22886')
+      .pipe(map(res=> res.json()))
+  }
+
+  getLinksUser(user){
+    return this.http.get('http://localhost:3000/api/linksUsuario/'.concat(user))
       .pipe(map(res=> res.json()))
   }
 
