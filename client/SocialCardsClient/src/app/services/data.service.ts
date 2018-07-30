@@ -23,5 +23,12 @@ export class DataService {
       .pipe(map(res=> res.json()))
   }
 
+  registerUser(user){
+    return this.http.post('http://localhost:3000/api/signup',user)
+  }
+
+  loginUser(user){
+    return this.http.post('http://localhost:3000/api/signin',user)
+  }
 
 }
