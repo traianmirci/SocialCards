@@ -20,11 +20,13 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { AuthGuard } from './guard/auth.guard';
 
 const appRoutes: Routes = [
   {path:'', component:DashboardComponent},
   {path:'login', component:LoginComponent},
   {path:'register', component:RegisterComponent},
+  {path:'dashboard', component:DashboardComponent,canActivate: [AuthGuard]}
 
 ];
 
@@ -51,7 +53,7 @@ const appRoutes: Routes = [
     HttpModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [DataService],
+  providers: [DataService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

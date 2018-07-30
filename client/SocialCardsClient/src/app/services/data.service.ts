@@ -31,4 +31,9 @@ export class DataService {
     return this.http.post('http://localhost:3000/api/signin',user)
   }
 
+  loggedIn(){
+    return !!localStorage.getItem('token')
+    console.log(!!localStorage.getItem('token'))
+  }
+
 }
