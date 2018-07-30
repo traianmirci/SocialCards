@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 
 
@@ -9,31 +9,31 @@ import { map } from 'rxjs/operators';
 })
 export class DataService {
 
-  constructor(public http:Http) { 
+  constructor(private http: HttpClient) { 
     console.log('Data service connected')
   }
 
   getUser(){
-    return this.http.get('http://localhost:3000/api/user/5b5a5998be57931458f22886')
-      .pipe(map(res=> res.json()))
+    return this.http.get<any>('http://localhost:3000/api/user/5b5a5998be57931458f22886')
   }
 
   getLinksUser(user){
-    return this.http.get('http://localhost:3000/api/linksUsuario/'.concat(user))
-      .pipe(map(res=> res.json()))
+    return this.http.get<any>('http://localhost:3000/api/linksUsuario/'.concat(user))
   }
 
   registerUser(user){
-    return this.http.post('http://localhost:3000/api/signup',user)
+    return this.http.post<any>('http://localhost:3000/api/signup',user)
   }
 
   loginUser(user){
-    return this.http.post('http://localhost:3000/api/signin',user)
+    return this.http.post<any>('http://localhost:3000/api/signin',user)
   }
 
   loggedIn(){
     return !!localStorage.getItem('token')
-    console.log(!!localStorage.getItem('token'))
   }
 
+  getToken(){
+    return localStorage.getItem('token')
+  }
 }

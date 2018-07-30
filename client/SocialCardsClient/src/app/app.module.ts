@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
 import { RouterModule, Routes} from '@angular/router';
 
 import { AppComponent } from './app.component';
@@ -22,11 +21,16 @@ import { SettingsComponent } from './components/settings/settings.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { AuthGuard } from './guard/auth.guard';
 
+import { HttpClientModule ,HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TokenInterceptorService } from './services/token-interceptor.service';
+
 const appRoutes: Routes = [
   {path:'', component:DashboardComponent},
   {path:'login', component:LoginComponent},
   {path:'register', component:RegisterComponent},
-  {path:'dashboard', component:DashboardComponent,canActivate: [AuthGuard]}
+  {path:'dashboard', component:DashboardComponent,canActivate: [AuthGuard]},
+  {path:'user', component:UserComponent,canActivate: [AuthGuard]}
+
 
 ];
 
@@ -50,10 +54,14 @@ const appRoutes: Routes = [
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule,
+    HttpClientModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [DataService, AuthGuard],
+  providers: [DataService, AuthGuard,{
+    provide: HTTP_INTERCEPTORS,
+    useClass: TokenInterceptorService,
+    multi: true //poder usar multiples interceptores
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

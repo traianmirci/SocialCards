@@ -32,7 +32,7 @@ export class UserComponent implements OnInit {
      
 
     this.dataService.getUser().subscribe((users)=>{console.log(users)})
-    this.dataService.getLinksUser(this.id).subscribe((links)=>{this.links = links;console.log(links)})
+    this.dataService.getLinksUser(this.id).subscribe((links)=>{this.links = links.json();console.log(links)})
   }
 
   onClick(){

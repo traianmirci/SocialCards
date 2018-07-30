@@ -11,18 +11,16 @@ import { Router } from '@angular/router';
 export class RegisterComponent implements OnInit {
 
   registerUserData = {}
-  constructor(private dataService:DataService, private _router:Router) { }
+  constructor(private _dataService:DataService, private _router:Router) { }
 
   ngOnInit() {
   }
 
   registerUser(registerUserData){
-    this.dataService.registerUser(this.registerUserData)
+    this._dataService.registerUser(this.registerUserData)
       .subscribe(
         res => {
-          console.log(res),
-          localStorage.setItem('token', res.json().token),
-          console.log(res.json().token),
+          localStorage.setItem('token', res.token),
           this._router.navigate(['/dashboard'])
         },
         err => console.log(err)
