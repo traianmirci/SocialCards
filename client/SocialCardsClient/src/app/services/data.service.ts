@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 
 
@@ -9,7 +10,7 @@ import { map } from 'rxjs/operators';
 })
 export class DataService {
 
-  constructor(private http: HttpClient) { 
+  constructor(private http: HttpClient,private _router:Router ) { 
     console.log('Data service connected')
   }
 
@@ -35,5 +36,14 @@ export class DataService {
 
   getToken(){
     return localStorage.getItem('token')
+  }
+
+  getPrivado(){
+    return this.http.get<any>('http://localhost:3000/api/edituser')
+  }
+
+  logOut(){
+    localStorage.removeItem('token');
+    this._router.navigate([''])
   }
 }
