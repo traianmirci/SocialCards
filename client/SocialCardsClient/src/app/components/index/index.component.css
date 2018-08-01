@@ -1,0 +1,19 @@
+.jumbotron{
+    padding-bottom: 200px;
+}
+
+.showExample{
+    margin: -150px auto -170px;
+    padding-left: 12px;
+    padding-right: 12px;
+    max-width: 1040px;
+}
+
+.cardExamplpe{
+    background-image: url(https://cdn.about.me/s3/h/z/5275676c.png);
+    width: 786px;
+    height: 526px;
+}
+
+.sticky-top{
+}
