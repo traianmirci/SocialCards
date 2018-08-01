@@ -12,6 +12,8 @@ export class LoginComponent implements OnInit {
 
   loginUserData = {}
   constructor(private dataService:DataService,private _router:Router  ) { }
+  resultado:string = '';
+  error:boolean = false;
 
   ngOnInit() {
   }
@@ -20,13 +22,28 @@ export class LoginComponent implements OnInit {
     this.dataService.loginUser(this.loginUserData)
       .subscribe(
         res => {
-          console.log(res),
           localStorage.setItem('token', res.token),
-          console.log(res.token),
           this._router.navigate(['/dashboard'])
         },
-        err => console.log(err)
+        err => {
+          this.error = true;
+          switch (err.status) {
+            case 404:
+                this.resultado = "Usuario no existe"
+              break;
+            case 401:
+                this.resultado = "Login incorrecto"
+            case 403:
+                this.resultado = "Login incorrecto"
+            break;
+            case 200:
+                this.resultado = "Login correcto"
+              break;
+
+            default:
+              break;
+          }
+        }
       )
-    console.log(this.loginUserData)
   }
 }
