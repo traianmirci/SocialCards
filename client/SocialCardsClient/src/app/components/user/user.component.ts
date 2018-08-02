@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../../services/data.service';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-user',
@@ -23,16 +25,26 @@ export class UserComponent implements OnInit {
 
   isEdit:boolean = false;
 
-  constructor(private dataService:DataService) { }
+  userData = {}
+
+  constructor(private dataService:DataService,private _router:Router  ) { }
 
   ngOnInit() {
     this.name = 'Traian';
-    this.email = "traian@gmail.com";
     this.id = "5b5a5998be57931458f22886";
      
 
-    this.dataService.getUser().subscribe((users)=>{console.log(users)})
-    this.dataService.getLinksUser(this.id).subscribe((links)=>{this.links = links.json();console.log(links)})
+    this.dataService.getLoggedUser().subscribe((user)=>{
+      this.email = user.user.email;console.log(user);
+      this.name = user.user.name;
+      this.picture = user.user.picture;
+      this.biography = user.user.biography;
+      this.userUrl = user.user.userUrl;
+      this.occupation = user.user.occupation;
+      this.country = user.user.country;
+    }
+    )
+    this.dataService.getLinksUser(this.id).subscribe((links)=>{this.links = links;console.log(links)})
   }
 
   onClick(){
@@ -59,8 +71,14 @@ export class UserComponent implements OnInit {
     this.isEdit = !this.isEdit;
   }
 
-}
+resultado:String =  "";
+error:Boolean;
 
+  updateUser(userData){
+    console.log("hagO:",userData)
+    
+  }
+}
 
 interface Link{
   name: String,

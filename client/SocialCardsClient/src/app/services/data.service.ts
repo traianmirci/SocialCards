@@ -14,8 +14,8 @@ export class DataService {
     console.log('Data service connected')
   }
 
-  getUser(){
-    return this.http.get<any>('http://localhost:3000/api/user/5b5a5998be57931458f22886')
+  getLoggedUser(){
+    return this.http.get<any>('http://localhost:3000/api/loggedUser')
   }
 
   getLinksUser(user){
@@ -45,5 +45,10 @@ export class DataService {
   logOut(){
     localStorage.removeItem('token');
     this._router.navigate([''])
+  }
+
+  updateUser(user){
+    console.log(user);
+    return this.http.put<any>('http://localhost:3000/api/user/',user)
   }
 }
