@@ -23,14 +23,14 @@ import { AuthGuard } from './guard/auth.guard';
 
 import { HttpClientModule ,HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptorService } from './services/token-interceptor.service';
+import { IndexComponent } from './components/index/index.component';
 
 const appRoutes: Routes = [
-  {path:'', component:DashboardComponent},
+  {path:'', component:IndexComponent},
   {path:'login', component:LoginComponent},
   {path:'register', component:RegisterComponent},
   {path:'dashboard', component:DashboardComponent,canActivate: [AuthGuard]},
   {path:'user', component:UserComponent,canActivate: [AuthGuard]}
-
 
 ];
 
@@ -49,7 +49,8 @@ const appRoutes: Routes = [
     LoginComponent,
     RegisterComponent,
     SettingsComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    IndexComponent
   ],
   imports: [
     BrowserModule,

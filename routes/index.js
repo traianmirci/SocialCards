@@ -15,7 +15,7 @@ api.get('/user',userController.getUsers)
 //Crear un usuario
 api.post('/user', userController.saveUser)
 //Actualizar usuario
-api.put('/user/:id', userController.updateUser)
+api.put('/user', userController.updateUser)
 //Borrar usuario
 api.delete('/user/:id', userController.deleteUser)
 //signup
@@ -44,6 +44,10 @@ api.get('/edituser', auth.isAuth, function(req,res){
     res.status(200).send({message: 'Tienes permiso'})
 
 })
+
+//usuario logueado
+//Devuelve todos los usuarios
+api.get('/loggedUser', auth.isAuth,userController.getUser)
 
 api.get('*', function(req, res){
     res.status(404).send('Petición incorrecta');

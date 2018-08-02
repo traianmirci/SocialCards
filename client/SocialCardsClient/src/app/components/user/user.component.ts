@@ -75,8 +75,33 @@ resultado:String =  "";
 error:Boolean;
 
   updateUser(userData){
-    console.log("hagO:",userData)
-    
+    console.log("hagO:",this.userData)  
+    this.dataService.updateUser(this.userData)
+      .subscribe(
+        res => {
+          this._router.navigate(['/dashboard'])
+        },
+        err => {
+          console.log("noooo",err)
+          this.error = true;
+          console.log(err)
+          switch (err.status) {
+            case 404:
+                this.resultado = "Usuario no existe"
+              break;
+            case 401:
+                this.resultado = "Login incorrecto"
+            case 403:
+                this.resultado = "Login incorrecto"
+            break;
+            case 200:
+                this.resultado = "Login correcto"
+              break;
+            default:
+              break;
+          }
+        }
+      )
   }
 }
 

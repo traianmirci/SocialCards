@@ -81,10 +81,10 @@ function updateUser(req,res){
     var token = req.headers['authorization'].replace("Bearer ","");
     var decoded = jwt.decode(token, 'clavetokensocialcards');
     var idUsuario = decoded.sub;
-
+    
     User.findByIdAndUpdate(idUsuario,req.body,{new: true}, (err, userUpdated)=>{
         if(err) return res.status(500).send({ message: `Error en la actualización ${err}`})
-
+    
         res.status(200).send({userUpdated})
     })
 }
