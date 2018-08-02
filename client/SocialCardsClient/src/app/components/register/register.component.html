@@ -1,5 +1,5 @@
-<body class="text-center">
-  <form class="form-signin">
+<body class="text-center"  >
+  <form class="form-signin" >
     <img class="mb-4" src="https://getbootstrap.com/docs/4.1/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
     <h1 class="h3 mb-3 font-weight-normal">Sign up</h1>
     <label for="inputEmail" class="sr-only">Email address</label>
@@ -15,7 +15,13 @@
         <input type="checkbox" value="remember-me"> Remember me
       </label>
     </div>
+    <div  *ngIf="error" class="alert alert-danger" role="alert">
+      {{resultado}}
+    </div>
+
     <button (click)="registerUser()" class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
+
+
     <p class="mt-5 mb-3 text-muted">©2018 SocialCards</p>
   </form>
 

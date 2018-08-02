@@ -3,6 +3,11 @@
 const User = require('../models/user.js')
 const service = require('../services')
 const bcrypt = require('bcrypt-nodejs')
+const config = require('../config')
+var jwt = require('jwt-simple');
+const services = require('../services/')
+
+
 
 
 function saveUser(req,res){
@@ -38,19 +43,32 @@ function saveUser(req,res){
 }
 
 function getUser(req,res){
-    let idUsuario = req.params.id;
-    console.log("busco")
-    console.log(idUsuario)
+    var token = req.headers['authorization'].replace("Bearer ","");
+    var decoded = jwt.decode(token, 'clavetokensocialcards');
+    var idUsuario = decoded.sub;
+
+    
     User.findById(idUsuario,(err, user)=>{
         if(err) return res.status(500).send({ message: `Error en la búsqueda ${err}`})
         if(!user) return res.status(404).send({message: `El usuario no existe`})
 
         res.status(200).send({user})
+        console.log('desde aqui')
     })
 }
 
 
 function getUsers(req,res){
+    
+    //console.log('token',req.headers['authorization'].replace("Bearer ",""))
+    
+
+    //console.log(req.headers.authorization)
+
+//    var decoded = jwt.decode(token, app.get('jwtTokenSecret'));
+
+   // console.log(decoded);
+
     User.find({}, (err, users)=>{
         if(err) return res.status(500).send({ message: `Error en la búsqueda ${err}`})
         if(!users) return res.status(404).send({message: `No existen usuarios`})
@@ -60,10 +78,11 @@ function getUsers(req,res){
 }
 
 function updateUser(req,res){
-    let idUsuario = req.params.id;
-    let update = req.body
+    var token = req.headers['authorization'].replace("Bearer ","");
+    var decoded = jwt.decode(token, 'clavetokensocialcards');
+    var idUsuario = decoded.sub;
 
-    User.findByIdAndUpdate(idUsuario,update, (err, userUpdated)=>{
+    User.findByIdAndUpdate(idUsuario,req.body,{new: true}, (err, userUpdated)=>{
         if(err) return res.status(500).send({ message: `Error en la actualización ${err}`})
 
         res.status(200).send({userUpdated})
@@ -85,7 +104,7 @@ function deleteUser(req,res){
 
 
 function signUp(req, res){
-    const user = new User({
+    const userReq = new User({
         name: req.body.name,
         email: req.body.email,
         //La contraseña no la guardo porque de esto ya me encargo con la 
@@ -96,13 +115,18 @@ function signUp(req, res){
         password: req.body.password
     })
 
-    user.save((err)=>{
-        if(err) res.send(500).send({message: `Error al crear el usuario ${err}`})
-        console.log("porqueno")
-        return res.status(200).send({token: service.createToken(user)})
-    })
+    User.findOne({email: req.body.email},(err,user)=>{
+        if(!user && !err){
+            userReq.save((err)=>{
+                if(err) res.status(500).send({message: `Error al crear el usuario ${err}`})
+                return res.status(200).send({token: service.createToken(userReq)})
+            })
+        }
+        if(user){
+            return res.status(409).send({message: 'Usuario ya registrado'})
+        }
+    })    
 }
-
 
 
 function signIn(req, res){
