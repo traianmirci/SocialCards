@@ -1,0 +1,9 @@
+.container {
+    max-width: 960px;
+  }
+  
+  .lh-condensed { line-height: 1.25; }
+
+  .dash{
+    background-color: #f8f9fa!important;
+  }
