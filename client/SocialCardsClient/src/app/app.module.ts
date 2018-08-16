@@ -25,6 +25,8 @@ import { HttpClientModule ,HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptorService } from './services/token-interceptor.service';
 import { IndexComponent } from './components/index/index.component';
 
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
+
 const appRoutes: Routes = [
   {path:'', component:IndexComponent},
   {path:'login', component:LoginComponent},
@@ -56,7 +58,8 @@ const appRoutes: Routes = [
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    AngularFontAwesomeModule
   ],
   providers: [DataService, AuthGuard,{
     provide: HTTP_INTERCEPTORS,
