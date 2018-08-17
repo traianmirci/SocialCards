@@ -18,8 +18,8 @@ export class DataService {
     return this.http.get<any>('http://localhost:3000/api/loggedUser')
   }
 
-  getLinksUser(user){
-    return this.http.get<any>('http://localhost:3000/api/linksUsuario/'.concat(user))
+  getLinksUser(){
+    return this.http.get<any>('http://localhost:3000/api/linksUsuario/')
   }
 
   registerUser(user){
@@ -40,6 +40,10 @@ export class DataService {
 
   getPrivado(){
     return this.http.get<any>('http://localhost:3000/api/edituser')
+  }
+
+  newLink(link){
+    return this.http.post<any>('http://localhost:3000/api/link',link)
   }
 
   logOut(){

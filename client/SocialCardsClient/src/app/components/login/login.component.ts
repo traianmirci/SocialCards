@@ -41,6 +41,7 @@ export class LoginComponent implements OnInit {
               break;
 
             default:
+              this.resultado = JSON.stringify(err);
               break;
           }
         }

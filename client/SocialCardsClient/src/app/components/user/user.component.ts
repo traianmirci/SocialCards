@@ -44,7 +44,7 @@ export class UserComponent implements OnInit {
       this.country = user.user.country;
     }
     )
-    this.dataService.getLinksUser(this.id).subscribe((links)=>{this.links = links;console.log(links)})
+    this.dataService.getLinksUser().subscribe((links)=>{this.links = links;})
   }
 
   onClick(){

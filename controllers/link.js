@@ -1,15 +1,25 @@
 'use strict'
 
 const Link = require('../models/link.js')
+const service = require('../services')
+const bcrypt = require('bcrypt-nodejs')
+const config = require('../config')
+var jwt = require('jwt-simple');
+const services = require('../services/')
 
 function saveLink(req,res){
+    //obtengo el id del usuario a partir del token
+    var token = req.headers['authorization'].replace("Bearer ","");
+    var decoded = jwt.decode(token, 'clavetokensocialcards');
+    var idUsuario = decoded.sub;
 
     let link = new Link();
     link.name = req.body.name;
     link.url = req.body.url;
-    link.clicks = req.body.clicks;
     link.active = req.body.active;
-    link.user = req.body.user;
+    link.user = idUsuario;
+    
+    
 
     link.save((err, linkStored)=>{
         if (err){
@@ -65,9 +75,12 @@ function deleteLink(req,res){
 }
 
 function getLinksUser(req,res){
-    let idUser = req.params.id;
-    console.log('busco',idUser)
-    Link.find({user: idUser},(err,links)=>{
+    var token = req.headers['authorization'].replace("Bearer ","");
+    var decoded = jwt.decode(token, 'clavetokensocialcards');
+    var idUsuario = decoded.sub;
+
+    console.log('busco',idUsuario)
+    Link.find({user: idUsuario},(err,links)=>{
         if (err) res.send(500).send(`Links no encontrados ${err}`)
         res.status(200).send(links)
     });

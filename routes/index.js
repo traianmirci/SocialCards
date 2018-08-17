@@ -36,13 +36,12 @@ api.put('/link/:id', linkController.updateLink)
 //Borrar link
 api.delete('/link/:id', linkController.deleteLink)
 //devuelve los links de un email
-api.get('/linksUsuario/:id', linkController.getLinksUser)
+api.get('/linksUsuario', linkController.getLinksUser)
 
 
 //privados
 api.get('/edituser', auth.isAuth, function(req,res){
     res.status(200).send({message: 'Tienes permiso'})
-
 })
 
 //usuario logueado
