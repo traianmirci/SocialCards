@@ -10,6 +10,8 @@ const api = express.Router()
 
 //Devuelve solo un  usuario
 api.get('/user/:id', userController.getUser)
+//Devuelve  un  usuario a partir de @username
+api.get('/userByUsername/:username', userController.getUserByUsername)
 //Devuelve todos los usuarios
 api.get('/user',userController.getUsers)
 //Crear un usuario

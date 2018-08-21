@@ -42,6 +42,20 @@ function saveUser(req,res){
     })
 }
 
+
+function getUserByUsername(req,res){
+    //console.log(req.params.username)
+    
+
+    User.find({ username: req.params.username},(err, user)=>{
+        if(err) return res.status(500).send({ message: `Error en la búsqueda ${err}`})
+        if(!user) return res.status(404).send({message: `El usuario no existe`})
+        if(user == 0 ) return res.status(404).send({message: `El usuario no existe`})
+        res.status(200).send({user})
+    })
+}
+
+
 function getUser(req,res){
     var token = req.headers['authorization'].replace("Bearer ","");
     var decoded = jwt.decode(token, 'clavetokensocialcards');
@@ -165,5 +179,6 @@ module.exports = {
     deleteUser,
     saveUser,
     signIn,
-    signUp
+    signUp,
+    getUserByUsername
 }

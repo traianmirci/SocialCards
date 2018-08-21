@@ -26,13 +26,24 @@ import { TokenInterceptorService } from './services/token-interceptor.service';
 import { IndexComponent } from './components/index/index.component';
 
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
+import { ProfileComponent } from './components/profile/profile.component';
+import { NotFound404Component } from './components/not-found404/not-found404.component';
+
+
+
+
+
 
 const appRoutes: Routes = [
   {path:'', component:IndexComponent},
   {path:'login', component:LoginComponent},
   {path:'register', component:RegisterComponent},
   {path:'dashboard', component:DashboardComponent,canActivate: [AuthGuard]},
-  {path:'user', component:UserComponent,canActivate: [AuthGuard]}
+  {path:'user', component:UserComponent,canActivate: [AuthGuard]},
+  {path:'404', component:NotFound404Component},
+  {path:'**', component:ProfileComponent},
+
+
 
 ];
 
@@ -52,7 +63,9 @@ const appRoutes: Routes = [
     RegisterComponent,
     SettingsComponent,
     PageNotFoundComponent,
-    IndexComponent
+    IndexComponent,
+    ProfileComponent,
+    NotFound404Component
   ],
   imports: [
     BrowserModule,
