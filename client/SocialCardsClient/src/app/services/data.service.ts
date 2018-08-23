@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { HttpHeaders } from '@angular/common/http';
+
 
 
 
@@ -56,7 +58,22 @@ export class DataService {
   }
 
   updateUser(user){
-    console.log(user);
-    return this.http.put<any>('http://localhost:3000/api/user/',user)
+    console.log("mando esto",user);
+    console.log("hago esto",this.http.put<any>('http://localhost:3000/api/user',user))
+    return this.http.put<any>('http://localhost:3000/api/user',user)
+    
+  }
+
+  
+  //INSTAGRAM
+
+  //guardar accesscode
+  saveInstagram(accesscode){
+    return this.http.get<any>('http://localhost:3000/api/user/saveInstagram/'.concat(accesscode))
+  }
+
+  //sacar feed
+  showInstagramFeed(username){
+    return this.http.get<any>('http://localhost:3000/api/user/showInstagram/'.concat(username))
   }
 }

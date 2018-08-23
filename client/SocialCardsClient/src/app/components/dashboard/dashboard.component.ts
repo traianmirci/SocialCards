@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../../services/data.service';
 import { Router } from '@angular/router';
+import { Link } from '../../models/link';
+
 
 
 @Component({
@@ -12,6 +14,8 @@ export class DashboardComponent implements OnInit {
   links: Link[];
   user ={
     biography: "",
+    twitterUsername: "",
+    user: "",
     
   }
   linkNuevo = {
@@ -20,6 +24,7 @@ export class DashboardComponent implements OnInit {
   linkEdit = {
     
   }
+  
 
   constructor(private dataService:DataService,private _router:Router  ) { }
 
@@ -39,9 +44,8 @@ export class DashboardComponent implements OnInit {
 }
 
   ngOnInit() {
-    console.log("hola",this.user);
     this.user.biography="";
-    console.log("hola2",this.user);
+    this.user.twitterUsername = "";
 
     this.getLinks();
     this.getUser();
@@ -64,7 +68,10 @@ export class DashboardComponent implements OnInit {
     this.dataService.getLinksUser().subscribe((links)=>{this.links = links;console.log(links)})
   }
   getUser() {      
-    this.dataService.getLoggedUser().subscribe((user)=>{this.user = user;console.log(this.user)})
+    this.dataService.getLoggedUser().subscribe((user)=>{
+      this.user = user;
+      //console.log("que es mejor :",user,"o",user.user);
+    })
   }
   newLink(link){
     this.dataService.newLink(this.linkNuevo).subscribe((success)=>{console.log(JSON.stringify(success))})
@@ -74,24 +81,11 @@ export class DashboardComponent implements OnInit {
     this.linkEdit = link;
   }
 
+  insertTwitter(){
+    this.dataService.updateUser({twitterUsername : this.user.twitterUsername}).subscribe((success)=>{console.log(JSON.stringify(success))})
+    console.log("lo que emppujo:",{twitterUsername : this.user.twitterUsername})
+  }
 
 
-}
 
-interface Link{
-  name: String,
-  url: string,
-  clicks: [{visits: Number, date:Date}],
-  publicationDate: Date,
-  active: boolean
-}
-
-interface User{
-  id: string;
-  name: String;
-  email?:  String;
-  password: String;
-  picture: String;
-  biography: String;
-  userUrl: String;
 }

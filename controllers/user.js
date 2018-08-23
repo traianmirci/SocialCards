@@ -6,6 +6,9 @@ const bcrypt = require('bcrypt-nodejs')
 const config = require('../config')
 var jwt = require('jwt-simple');
 const services = require('../services/')
+const https = require('https');
+
+
 
 
 
@@ -43,10 +46,7 @@ function saveUser(req,res){
 }
 
 
-function getUserByUsername(req,res){
-    //console.log(req.params.username)
-    
-
+function getUserByUsername(req,res){    
     User.find({ username: req.params.username},(err, user)=>{
         if(err) return res.status(500).send({ message: `Error en la búsqueda ${err}`})
         if(!user) return res.status(404).send({message: `El usuario no existe`})
@@ -57,10 +57,10 @@ function getUserByUsername(req,res){
 
 
 function getUser(req,res){
-    var token = req.headers['authorization'].replace("Bearer ","");
+    var token = req.headers['authorization'].replace("Bearer ",""); 
     var decoded = jwt.decode(token, 'clavetokensocialcards');
     var idUsuario = decoded.sub;
-
+    console.log(req.url)
     
     User.findById(idUsuario,(err, user)=>{
         if(err) return res.status(500).send({ message: `Error en la búsqueda ${err}`})
@@ -92,10 +92,11 @@ function getUsers(req,res){
 }
 
 function updateUser(req,res){
+    console.log("porque no entro")
     var token = req.headers['authorization'].replace("Bearer ","");
     var decoded = jwt.decode(token, 'clavetokensocialcards');
     var idUsuario = decoded.sub;
-    
+    console.log("edito",req.body)
     User.findByIdAndUpdate(idUsuario,req.body,{new: true}, (err, userUpdated)=>{
         if(err) return res.status(500).send({ message: `Error en la actualización ${err}`})
     
@@ -171,6 +172,73 @@ function signIn(req, res){
     })
 }
 
+function saveInstagram(req,res){
+    console.log("entro")
+    var token = req.headers['authorization'].replace("Bearer ","");
+    var decoded = jwt.decode(token, 'clavetokensocialcards');
+    var idUsuario = decoded.sub;
+
+    var parametro = req.params.accesstoken.replace("#access_token=","");
+    //usernuevo.token = 'hola';
+
+    console.log(req.params.accesstoken)
+    
+    User.findByIdAndUpdate(idUsuario,{ instagramToken : req.params.accesstoken},{new: true, strict: false}, (err, userUpdated)=>{
+        if(err) return res.status(500).send({ message: `Error en la actualización ${err}`})
+        userUpdated.token = req.params.accesstoken;
+        
+        res.status(200).send({userUpdated})
+    })
+}
+
+function showInstagram(req,res){
+    var tokenInstagram = "";
+    var resultado;
+
+    var username = req.params.username;
+    
+    var query = getInstagramTokenFromUsername(username);
+    query.exec(function(err,users){
+        if(err) return res.status(500).send({ message: `Error en la búsqueda ${err}`})
+        if(!users) return res.status(404).send({message: `El usuario no existe`})
+        if(users == 0 ) return res.status(404).send({message: `El usuario no existe`})
+        users.forEach(function(user){
+           tokenInstagram = users[0].instagramToken;
+           peticionAInstagram(res,tokenInstagram)
+        });
+     });
+}
+
+
+function peticionAInstagram(res,tokenInstagram){
+    https.get('https://api.instagram.com/v1/users/self/media/recent/?access_token='.concat(tokenInstagram), res2 => {
+        res2.setEncoding("utf8");
+        let body = "";
+        res2.on("data", data => {
+          body += data;
+        });
+        res2.on("end", () => {
+          var resultado = JSON.parse(body);
+
+          devolverInstagramJson(res,resultado)
+        });
+      });
+}
+//hago otra funcion auxiliar para poder esperar a que se haga la peticion anterior de get
+function devolverInstagramJson(res,body){
+    res.status(200).send(body)
+}
+
+function getInstagramTokenFromUsername(pusername){
+    var query = User.find({ username: pusername},{strict: false},(err, user)=>{
+        
+    }) 
+    return query;
+
+
+}
+
+
 
 module.exports = {
     getUser,
@@ -180,5 +248,9 @@ module.exports = {
     saveUser,
     signIn,
     signUp,
-    getUserByUsername
+    getUserByUsername,
+    saveInstagram,
+    showInstagram,
+    getInstagramTokenFromUsername,
+    devolverInstagramJson
 }

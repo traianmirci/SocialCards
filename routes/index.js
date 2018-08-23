@@ -25,6 +25,9 @@ api.delete('/user/:id', userController.deleteUser)
 api.post('/signUp', userController.signUp)
 api.post('/signIn', userController.signIn)
 
+//instagram
+api.get('/user/saveInstagram/:accesstoken',userController.saveInstagram)
+api.get('/user/showInstagram/:username',userController.showInstagram)
 
 
 //Devuelve solo un  link

@@ -28,6 +28,7 @@ import { IndexComponent } from './components/index/index.component';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { ProfileComponent } from './components/profile/profile.component';
 import { NotFound404Component } from './components/not-found404/not-found404.component';
+import { StoreinstagramComponent } from './components/storeinstagram/storeinstagram.component';
 
 
 
@@ -41,7 +42,9 @@ const appRoutes: Routes = [
   {path:'dashboard', component:DashboardComponent,canActivate: [AuthGuard]},
   {path:'user', component:UserComponent,canActivate: [AuthGuard]},
   {path:'404', component:NotFound404Component},
-  {path:'**', component:ProfileComponent},
+  {path:'storeinstagram', component:StoreinstagramComponent},
+  {path:'**', component:ProfileComponent}
+  
 
 
 
@@ -65,7 +68,8 @@ const appRoutes: Routes = [
     PageNotFoundComponent,
     IndexComponent,
     ProfileComponent,
-    NotFound404Component
+    NotFound404Component,
+    StoreinstagramComponent
   ],
   imports: [
     BrowserModule,

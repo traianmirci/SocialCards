@@ -16,7 +16,7 @@
               </a>
             </div>
             <div class="card-body">
-              <h6 class="card-category text-gray">@traianmirci</h6>
+              <a href="/{{user?.user?.username}}" class="h6 card-category text-gray">@traianmirci</a>
               <h4 class="card-title">Traian Alexandru Mirci</h4>
               <p class="card-description">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis nunc diam, egestas tempus libero vitae, ullamcorper faucibus lectus. Duis quis lorem nec sem dictum lacinia. 
@@ -50,7 +50,7 @@
                             </td>
                             <td>{{link.name}}<br>{{link.url}}</td>
                             <td class="td-actions text-right">
-                              <button type="button"  title="" class="btn btn-primary btn-link btn-sm" data-original-title="Edit Task" (click)="linkEditFunction(link)" data-toggle="modal" data-target="#modalEditLink">
+                              <button type="button" rel="tooltip" title="" class="btn btn-primary btn-link btn-sm" data-original-title="Edit Task" (click)="linkEditFunction(link)" data-toggle="modal" data-target="#modalEditLink">
                                 <i class="fa fa-pencil fa-fw"></i>
                               </button>
                               <button type="button" rel="tooltip" title="" class="btn btn-danger btn-link btn-sm" data-original-title="Remove">
@@ -76,7 +76,7 @@
                   <p class="card-category">Un poco sobre ti...</p>
                 </div>
                 <div class="card-body table-responsive">
-                  <textarea name="biography" [(ngModel)]="user.user.biography"   class="form-control" aria-label="With textarea" rows="5" style="resize: vertical;" ></textarea>
+                  <textarea name="biography"   class="form-control" aria-label="With textarea" rows="5" style="resize: vertical;" >{{user?.user?.biography}}</textarea>
                   <div class="form-row text-center"><br>
                       <div class="col-12">
                           <button type="submit" class="btn btn-warning">Actualizar biografía<div class="ripple-container"></div></button>
@@ -84,7 +84,6 @@
                   </div>
                 </div>
               </div>
-              <a class="twitter-timeline" data-tweet-limit="3" href="https://twitter.com/traianmirci"></a>
 
             </div>
         </div>
@@ -107,18 +106,72 @@
             </button>
           </div>
           <div class="modal-body">
-            <form action="" class="">
-              <label for="inputTitleLink" class="sr-only">Titulo</label>
-              <input [(ngModel)]="linkNuevo.name" name="linkTitle" type="text" id="inputLinkName" class="form-control" placeholder="Titulo" required="" autofocus="">
-          
-              <label for="inputUrl" class="sr-only">Enlace</label>
-              <input [(ngModel)]="linkNuevo.url" name="linkUrl" type="text" id="inputLinkUrl" class="form-control" placeholder="Enlace" required="">
-              </form>
+            
+
+
+              <div class="card">
+                  <div class="card-header card-header-tabs card-header-primary">
+                    <div class="nav-tabs-navigation">
+                      <div class="nav-tabs-wrapper">
+                        <span class="nav-tabs-title">Añadir:</span>
+                        <ul class="nav nav-tabs" data-tabs="tabs">
+                          <li class="nav-item">
+                            <a class="nav-link active show" href="#instagram" data-toggle="tab">
+                              <i class="fa fa-instagram fa-lg"></i> Instagram
+                              <div class="ripple-container"></div>
+                            <div class="ripple-container"></div></a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link" href="#twitter" data-toggle="tab">
+                              <i class="fa fa-twitter fa-lg"></i> Twitter
+                              <div class="ripple-container"></div>
+                            <div class="ripple-container"></div></a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link" href="#link" data-toggle="tab">
+                              <i class="fa fa-link fa-lg"></i> Link
+                              <div class="ripple-container"></div>
+                            <div class="ripple-container"></div></a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-body">
+                    <div class="tab-content">
+                      <div class="tab-pane active show" id="instagram">
+                        <a href="https://api.instagram.com/oauth/authorize/?client_id=895b3e9dd22745899699c8eae8e03a0e&redirect_uri=http://localhost:4200/storeinstagram&response_type=token">Conceder acceso</a>
+                      </div>
+                      <div class="tab-pane" id="twitter">
+
+                          <form action="" class="">
+                          <label for="inputTwitterUsername" class="sr-only">Username</label>
+                          twitter.com/<input [(ngModel)]="user.twitterUsername" name="twitterUsername" type="text" id="inputTwitterUsername" class="form-control" placeholder="username" required="" autofocus="">
+                          </form>
+                          <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                              <button type="button" class="btn btn-primary" (click)="insertTwitter()">Save changes</button>
+                          </div> 
+                        </div>
+                      <div class="tab-pane" id="link">
+                        
+                          <form action="" class="">
+                              <label for="inputTitleLink" class="sr-only">Titulo</label>
+                              <input [(ngModel)]="linkNuevo.name" name="linkTitle" type="text" id="inputLinkName" class="form-control" placeholder="Titulo" required="" autofocus="">
+                          
+                              <label for="inputUrl" class="sr-only">Enlace</label>
+                              <input [(ngModel)]="linkNuevo.url" name="linkUrl" type="text" id="inputLinkUrl" class="form-control" placeholder="Enlace" required="">
+                            </form><br><br>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary" (click)="newLink()">Save changes</button>
+                            </div> 
+                      </div>
+                    </div>
+                  </div>
+                </div>
           </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" (click)="newLink()">Save changes</button>
-          </div>     
+    
         </div>
       </div>
     </div>
@@ -152,4 +205,27 @@
       </div>
     </div>
     <!-- MODAL-->
+
+    <!--   Core JS Files   -->
+  <script src="../../../assets/js/core/jquery.min.asdasjs" type="text/javascript"></script>
+  <script src="../../../assets/js/core/popper.min.js" type="text/javascript"></script>
+  <script src="../../../assets/js/core/bootstrap-material-design.min.js" type="text/javascript"></script>
+  <script src="../../../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+  <!--  Google Maps Plugin    -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+  <!-- Chartist JS -->
+  <script src="../../../assets/js/plugins/chartist.min.js"></script>
+  <!--  Notifications Plugin    -->
+  <script src="../../../assets/js/plugins/bootstrap-notify.js"></script>
+  <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
+  <script src="../../../assets/js/material-dashboard.min.js?v=2.1.0" type="text/javascript"></script>
+
+  <script>
+    $(document).ready(function() {
+      // Javascript method's body can be found in assets/js/demos.js
+      md.initDashboardPageCharts();
+
+    });
+  </script>
 </body>
+
