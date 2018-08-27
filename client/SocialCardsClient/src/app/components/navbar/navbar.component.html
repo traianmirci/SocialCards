@@ -2,12 +2,12 @@
   <a class="h5 my-0 mr-md-auto font-weight-normal" id="logo" href="/">SocialCards</a>
 
   <nav class="my-2 my-md-0 mr-md-3">
-    <a class="p-2 text-dark" href="/dashboard">Dashboard</a>
-    <a class="p-2 text-dark" href="/user">User</a>
+    <a class="p-2 text-dark" *ngIf="dataService.loggedIn()" routerLink="/dashboard">Dashboard</a>
+    <a class="p-2 text-dark" *ngIf="dataService.loggedIn()" routerLink="/user">User</a>
     <a class="p-2 text-dark" href="#">Help</a>
-    <a class="p-2 text-dark" *ngIf="!dataService.loggedIn()" href="/login">Login</a>
+    <a class="p-2 text-dark" *ngIf="!dataService.loggedIn()" routerLink="/login">Login</a>
     <a class="p-2 text-dark" style="cursor:pointer" *ngIf="dataService.loggedIn()" (click)="dataService.logOut()" >Logout</a>
-
+  
   </nav>
-  <a class="btn btn-outline-primary" *ngIf="!dataService.loggedIn()" href="/register">Sign up</a>
+  <a class="btn btn-outline-primary" *ngIf="!dataService.loggedIn()" routerLink="/register">Sign up</a>
 </div>

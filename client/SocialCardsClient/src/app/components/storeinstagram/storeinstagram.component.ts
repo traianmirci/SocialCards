@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { DataService } from '../../services/data.service';
+import {ToasterModule, ToasterService, ToasterConfig,Toast} from 'angular2-toaster';
+
 
 
 @Component({
@@ -11,19 +13,35 @@ import { DataService } from '../../services/data.service';
 })
 export class StoreinstagramComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute,private dataService:DataService,private _router: Router) { }
+  constructor(
+    private route: ActivatedRoute,
+    private dataService:DataService,
+    private _router: Router,
+    private toasterService:ToasterService) {        this.toasterService = toasterService;
+    }
+
+  postslimit:any;
+  public config: ToasterConfig =     new ToasterConfig({positionClass: 'toast-top-left'});
+
 
   ngOnInit() {
-    this.myfunction()
+  
+
   }
 
-  myfunction(){
+  guardar(){
     this.route.fragment.subscribe((fragment: string) => {
-        this.dataService.saveInstagram(fragment.replace('access_token=',''))
+        this.dataService.saveInstagram(fragment.replace('access_token=',''),this.postslimit)
         .subscribe(
           res => {
-            //displayUser(res);
-            console.log("xx",res)
+            var toast : Toast = {
+              type: 'success',
+              title: 'Petición correcta',
+              body: 'El limite se ha asignado correctamente',
+              };
+            this.toasterService.pop(toast);
+            this._router.navigate(['/dashboard']);
+
 
           },
           err => {
@@ -35,4 +53,10 @@ export class StoreinstagramComponent implements OnInit {
         console.log('http://localhost:3000/api/user/saveInstagram/'.concat(fragment))
     })
   }
+
+  setLimit(id){
+    //this.dataService.
+
+  }
 }
+

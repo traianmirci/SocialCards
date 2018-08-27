@@ -153,7 +153,8 @@ function signIn(req, res){
             if(req.body.password && user.password){
                 
                 bcrypt.compare(req.body.password,user.password, function(err, comparePassword) {
-                    console.log(user.password)
+                    //console.log(user.username)
+
 
                     if (err) return res.status(500).send({ message: err });
                     if (comparePassword == false) return res.status(403).send({ message: 'Datos incorrectos' });
@@ -161,6 +162,7 @@ function signIn(req, res){
                     res.status(200).send({
                         message: 'Login correcto',
                         user_id: user.id,
+                        username: user.username,
                         token: service.createToken(user),
                     });
                 });
@@ -192,21 +194,9 @@ function saveInstagram(req,res){
 }
 
 function showInstagram(req,res){
-    var tokenInstagram = "";
-    var resultado;
+    var tokenInstagram = req.params.accesstoken;
+    peticionAInstagram(res,tokenInstagram)
 
-    var username = req.params.username;
-    
-    var query = getInstagramTokenFromUsername(username);
-    query.exec(function(err,users){
-        if(err) return res.status(500).send({ message: `Error en la búsqueda ${err}`})
-        if(!users) return res.status(404).send({message: `El usuario no existe`})
-        if(users == 0 ) return res.status(404).send({message: `El usuario no existe`})
-        users.forEach(function(user){
-           tokenInstagram = users[0].instagramToken;
-           peticionAInstagram(res,tokenInstagram)
-        });
-     });
 }
 
 
@@ -229,14 +219,6 @@ function devolverInstagramJson(res,body){
     res.status(200).send(body)
 }
 
-function getInstagramTokenFromUsername(pusername){
-    var query = User.find({ username: pusername},{strict: false},(err, user)=>{
-        
-    }) 
-    return query;
-
-
-}
 
 
 
@@ -251,6 +233,5 @@ module.exports = {
     getUserByUsername,
     saveInstagram,
     showInstagram,
-    getInstagramTokenFromUsername,
     devolverInstagramJson
 }

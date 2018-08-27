@@ -26,8 +26,8 @@ api.post('/signUp', userController.signUp)
 api.post('/signIn', userController.signIn)
 
 //instagram
-api.get('/user/saveInstagram/:accesstoken',userController.saveInstagram)
-api.get('/user/showInstagram/:username',userController.showInstagram)
+api.get('/user/saveInstagram/:accesstoken/:postslimit',linkController.saveInstagram)
+api.get('/user/showInstagram/:accesstoken',userController.showInstagram)
 
 
 //Devuelve solo un  link

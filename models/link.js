@@ -10,7 +10,7 @@ const LinkSchema = new mongoose.Schema({
     name: String,
     url: String,
     clicks: [{ visits: Number, date: Date }],
-    type: String, enum: ['facebook', 'twitter', 'instagram','twitch','youtube','tumblr'],
+    type: String, enum: ['facebook', 'twitter', 'instagram','twitch','youtube','tumblr','link'],
     active: Boolean,
     user: {
         type: Schema.ObjectId,
@@ -20,7 +20,18 @@ const LinkSchema = new mongoose.Schema({
     type: Date,
     default: Date.now()
     },
+
+    twitter: {
+        username: {type: String},
+        postslimit: {type: Number}
+    },
+    instagram: {
+        accesstoken: {type: String},
+        postslimit: {type: Number}
+    }
+
 })
+
 
 
 

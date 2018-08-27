@@ -16,7 +16,8 @@ const UserSchema = new mongoose.Schema({
     occupation: { type: String, enum: ['Student','Developer']},
     country: { type: String, enum: ['Spain','USA','France']},
     instagramToken: String,
-    twitterUsername: String
+    twitterUsername: String,
+    username: String
 })
 
 UserSchema.pre('save', function(next){

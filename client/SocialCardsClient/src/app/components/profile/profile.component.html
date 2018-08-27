@@ -11,7 +11,7 @@
             <div class="col-md-6 ml-auto mr-auto">
               <div class="profile">
                 <div class="avatar">
-                  <img src="../assets/img/faces/christian.jpg" alt="Circle Image" class="img-raised rounded-circle img-fluid">
+                  <img *ngIf="igProfilePicture" src="{{igProfilePicture}}" alt="Circle Image" class="img-raised rounded-circle img-fluid">
                 </div>
                 <div class="name">
                   <h3 *ngIf="user?.name" class="title">{{user.name}}</h3>
@@ -26,6 +26,7 @@
                   </div>
                 </div>
               </div>
+
             </div>
           </div>
           <div class="description text-center">
@@ -35,26 +36,46 @@
 
           </div>
           <div class="row">
-            <div class="col-md-4">
-                <a class="twitter-timeline" data-tweet-limit="3" href="https://twitter.com/{{user?.twitterUsername}}"></a>
-            </div>
-            <div class="col-md-4">
-               
-             
-                   
-                  
-            </div>
+            <ng-container *ngIf="twitter">
+                <ng-container *ngFor="let tw of twitter">
+                  <ng-container *ngIf="tw.twitter.username != ''">
+                    <div class="col-md-4">
+                    <a class="twitter-timeline" [attr.data-tweet-limit]="tw.twitter.postslimit" href="https://twitter.com/{{tw.twitter.username}}"></a>
+                    </div>
+                  </ng-container>
+                </ng-container>
+            </ng-container>   
+
+            
+
+
+            <ng-container *ngIf="instagram">
+              <ng-container *ngFor="let insta of instagram">
+                <ng-container *ngIf="insta.instagram.accesstoken != ''">
+                  <div class="col-md-4">
+                    <ul  style="list-style: none;">
+                      <li *ngFor="let objeto of insta.data.data;let myIndex = index" style="margin: 12px 5px;">
+                        <a *ngIf="myIndex < insta.instagram.postslimit" href="{{objeto.link}}"><img src={{objeto.images.standard_resolution.url}} class="img-fluid rounded"  alt=""></a>
+                      </li>
+                    </ul>
+                  </div>
+                </ng-container>
+              </ng-container>
+            </ng-container>   
+
+
+
             <div class="col-md-4">
               <div class="col-md-12" style="text-align: center">
                   <ng-container *ngIf="igUsername">
-                      <i class="fa fa-instagram fa-lg"></i>Posts by @{{igUsername}}   
+                      <i class="fa fa-instagram fa-lg"></i>@{{igUsername}}   
 
                     </ng-container>   
 
               </div>
                 <ng-container *ngIf="iGimages">
-                    <ul *ngFor="let image of iGimages">
-                        <li><a href="{{igUrl}}"><img src={{image.imageUrl}} class="img-fluid rounded"  alt=""></a></li>
+                    <ul  style="list-style: none;">
+                        <li *ngFor="let image of iGimages" style="margin: 12px 5px;"><a href="{{igUrl}}"><img src={{image.imageUrl}} class="img-fluid rounded"  alt=""></a></li>
                       </ul>
                   </ng-container>                
 

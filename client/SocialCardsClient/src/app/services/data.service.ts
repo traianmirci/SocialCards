@@ -3,18 +3,23 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { HttpHeaders } from '@angular/common/http';
+import { User } from '../models/user';
 
 
 
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DataService {
 
   constructor(private http: HttpClient,private _router:Router ) { 
     console.log('Data service connected')
   }
+
+  loggedInUser?: String;
+
+  
 
   getLoggedUser(){
     return this.http.get<any>('http://localhost:3000/api/loggedUser')
@@ -54,6 +59,8 @@ export class DataService {
 
   logOut(){
     localStorage.removeItem('token');
+    localStorage.removeItem('username');
+
     this._router.navigate([''])
   }
 
@@ -68,8 +75,9 @@ export class DataService {
   //INSTAGRAM
 
   //guardar accesscode
-  saveInstagram(accesscode){
-    return this.http.get<any>('http://localhost:3000/api/user/saveInstagram/'.concat(accesscode))
+  saveInstagram(accesscode,limite){
+    return this.http.get<any>('http://localhost:3000/api/user/saveInstagram/'.concat(accesscode,'/',limite))
+    //console.log("eeeeeeeeeee",'http://localhost:3000/api/user/saveInstagram/'.concat(accesscode,'/',limite))
   }
 
   //sacar feed

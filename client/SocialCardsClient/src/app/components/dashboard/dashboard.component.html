@@ -1,7 +1,9 @@
 <link rel="stylesheet" type="text/css" href="src/assets/css/material-dashboard.css" />
 <link rel="stylesheet" type="text/css" href="node_modules/bootstrap/dist/js/bootstrap.js" />
+<link rel="script" type="text/css" href="node_modules/bootstrap/dist/js/bootstrap.js" />
+<script src="https://connect.facebook.net/en_US/all.js"></script>
 
- 
+
 
 
 
@@ -21,7 +23,7 @@
               <p class="card-description">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis nunc diam, egestas tempus libero vitae, ullamcorper faucibus lectus. Duis quis lorem nec sem dictum lacinia. 
               </p>
-              <a href="/user" class="btn btn-primary btn-round">Cambiar datos de usuario</a>
+              <a routerLink="/user" class="btn btn-primary btn-round">Cambiar datos de usuario</a>
 
             </div>
           </div>
@@ -37,6 +39,18 @@
               <div class="card-body table-responsive">
                       <table class="table">
                         <tbody>
+                          
+                            <!--<ng-container *ngIf="user.user.twitterUsername">
+                                <pre>{{user.user.twitterUsername}}</pre>
+<br>
+                               </ng-container>      
+                               
+                               <ng-container *ngIf="user.user.instagramToken">
+                                  <pre>{{user.user.instagramToken}}</pre>
+  <br>
+                                 </ng-container>  -->
+
+
                           <tr *ngFor="let link of links;let i = index">
                             <td>
                               <div class="form-check">
@@ -46,8 +60,17 @@
                                     <span class="check"></span>
                                   </span>
                                 </label>
+                                <ng-container *ngIf="link.type == 'twitter'">
+                                    <i class="fa fa-twitter"></i>
+                                </ng-container>
+                                <ng-container *ngIf="link.type == 'link'">
+                                  <i class="fa fa-link"></i>
+                              </ng-container>      
                               </div>
                             </td>
+                            <ng-container *ngIf="link.type == 'twitter'">
+                              <td><i class="fa fa-twitter"></i><br>Username: {{link.twitter.username}}<br>Límite de posts: {{link.twitter.postslimit}}</td>
+                            </ng-container>    
                             <td>{{link.name}}<br>{{link.url}}</td>
                             <td class="td-actions text-right">
                               <button type="button" rel="tooltip" title="" class="btn btn-primary btn-link btn-sm" data-original-title="Edit Task" (click)="linkEditFunction(link)" data-toggle="modal" data-target="#modalEditLink">
@@ -141,12 +164,13 @@
                     <div class="tab-content">
                       <div class="tab-pane active show" id="instagram">
                         <a href="https://api.instagram.com/oauth/authorize/?client_id=895b3e9dd22745899699c8eae8e03a0e&redirect_uri=http://localhost:4200/storeinstagram&response_type=token">Conceder acceso</a>
+                        <input [(ngModel)]="instagramPostLimit" name="instagramPostLimit" type="text" id="instagramPostLimit" class="form-control" placeholder="post limit" required="" autofocus="">
                       </div>
                       <div class="tab-pane" id="twitter">
-
                           <form action="" class="">
                           <label for="inputTwitterUsername" class="sr-only">Username</label>
-                          twitter.com/<input [(ngModel)]="user.twitterUsername" name="twitterUsername" type="text" id="inputTwitterUsername" class="form-control" placeholder="username" required="" autofocus="">
+                          twitter.com/<input [(ngModel)]="twitterNuevo.twitterUsername" name="twitterUsername" type="text" id="inputTwitterUsername" class="form-control" placeholder="username" required="" autofocus="">
+                          <input [(ngModel)]="twitterNuevo.twitterPostsLimit" name="twitterUsername" type="text" id="inputTwitterUsername" class="form-control" placeholder="post limit" required="" autofocus="">
                           </form>
                           <div class="modal-footer">
                               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

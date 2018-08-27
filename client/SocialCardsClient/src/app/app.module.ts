@@ -30,7 +30,8 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { NotFound404Component } from './components/not-found404/not-found404.component';
 import { StoreinstagramComponent } from './components/storeinstagram/storeinstagram.component';
 
-
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {ToasterModule, ToasterService} from 'angular2-toaster';
 
 
 
@@ -76,13 +77,18 @@ const appRoutes: Routes = [
     FormsModule,
     HttpClientModule,
     RouterModule.forRoot(appRoutes),
-    AngularFontAwesomeModule
+    AngularFontAwesomeModule,
+    BrowserAnimationsModule,
+     ToasterModule.forRoot()
   ],
-  providers: [DataService, AuthGuard,{
-    provide: HTTP_INTERCEPTORS,
-    useClass: TokenInterceptorService,
-    multi: true //poder usar multiples interceptores
-  }],
+  providers: [
+    DataService,
+    AuthGuard,{
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptorService,
+      multi: true //poder usar multiples interceptores
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

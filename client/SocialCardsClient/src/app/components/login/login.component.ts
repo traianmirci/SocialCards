@@ -23,6 +23,11 @@ export class LoginComponent implements OnInit {
       .subscribe(
         res => {
           localStorage.setItem('token', res.token),
+          console.log("era:",this.dataService.loggedInUser)
+
+          this.dataService.loggedInUser = res.username,
+          console.log("acum:",this.dataService.loggedInUser)
+
           this._router.navigate(['/dashboard'])
         },
         err => {

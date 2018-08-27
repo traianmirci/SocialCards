@@ -18,8 +18,17 @@ function saveLink(req,res){
     link.url = req.body.url;
     link.active = req.body.active;
     link.user = idUsuario;
-    
-    
+    link.type = req.body.type;
+
+    if(req.body.type == 'twitter'){
+        link.twitter.username = req.body.twitterUsername ,
+        link.twitter.postslimit= req.body.twitterPostsLimit ;
+    }
+
+    if(req.body.type == 'instagram'){
+        link.instagram.accesstoken = req.body.instagramAccessToken ,
+        link.twitter.postslimit= req.body.twitterPostsLimit ;
+    }
 
     link.save((err, linkStored)=>{
         if (err){
@@ -86,6 +95,32 @@ function getLinksUser(req,res){
     });
 }
 
+function saveInstagram(req,res){
+    //obtengo el id del usuario a partir del token
+    var token = req.headers['authorization'].replace("Bearer ","");
+    var decoded = jwt.decode(token, 'clavetokensocialcards');
+    var idUsuario = decoded.sub;
+
+    var parametro = req.params.accesstoken.replace("#access_token=","");
+    var limite = req.params.postslimit;
+
+    let link = new Link();
+    link.active = true;
+    link.user = idUsuario;
+    link.type = 'instagram';
+
+    link.instagram.accesstoken = parametro;
+    link.instagram.postslimit = limite;
+    
+    link.save((err, linkStored)=>{
+        if (err){
+            res.status(500).send({message: `Error al guardar el link ${err}`})
+        }
+
+        res.status(200).send({link: linkStored})
+    })
+}
+
 
 module.exports = {
     getLink,
@@ -93,5 +128,6 @@ module.exports = {
     updateLink,
     deleteLink,
     saveLink,
-    getLinksUser
+    getLinksUser,
+    saveInstagram
 }

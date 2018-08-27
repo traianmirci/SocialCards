@@ -1,3 +1,25 @@
-<p>
-  storeinstagram works!
-</p>
+<link rel="stylesheet" type="text/css" href="/node_modules/angular2-toaster/toaster.min.css" />
+<toaster-container></toaster-container>
+<!-- Modal EDIT LINK-->
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Instagram: límite de posts</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close" >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form action="" class="">
+                <label for="inputTitleLink" class="sr-only">Límite de posts</label>
+                <input [(ngModel)]="postslimit" name="postslimit" type="text" id="inputLinkUrl" class="form-control" placeholder="Número de fotos que deseas mostrar" required="">
+
+                </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" (click)="guardar()">Save changes</button>
+            </div>
+          </div>
+        </div>
+<!-- MODAL-->
+

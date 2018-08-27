@@ -24,6 +24,13 @@ export class DashboardComponent implements OnInit {
   linkEdit = {
     
   }
+  twitterNuevo = {
+    active:true,
+    type:"twitter",
+    twitterUsername: "",
+    twitterPostsLimit: 5
+  }
+  instagramPostsLimit:string;
   
 
   constructor(private dataService:DataService,private _router:Router  ) { }
@@ -41,6 +48,8 @@ export class DashboardComponent implements OnInit {
         }
     }
     (document,"script","twitter-wjs");
+
+    console.log("a ver si desde aqui lo veo",this.dataService.loggedInUser)
 }
 
   ngOnInit() {
@@ -52,7 +61,7 @@ export class DashboardComponent implements OnInit {
     this.dataService.getPrivado()
       .subscribe(
         res => {
-          //console.log('siiiiiiiiiiiiiiiiiiii')
+          //console.log('privado')
           
         },
         err => {
@@ -82,8 +91,9 @@ export class DashboardComponent implements OnInit {
   }
 
   insertTwitter(){
-    this.dataService.updateUser({twitterUsername : this.user.twitterUsername}).subscribe((success)=>{console.log(JSON.stringify(success))})
-    console.log("lo que emppujo:",{twitterUsername : this.user.twitterUsername})
+    //this.dataService.updateUser({twitterUsername : this.user.twitterUsername}).subscribe((success)=>{console.log(JSON.stringify(success))})
+    console.log("estoy intentando meter esto",this.twitterNuevo)
+    this.dataService.newLink(this.twitterNuevo).subscribe((success)=>{console.log("he metido uno nuevo",JSON.stringify(success))})
   }
 
 
