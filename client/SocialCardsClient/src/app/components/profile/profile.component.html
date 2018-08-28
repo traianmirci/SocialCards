@@ -2,6 +2,7 @@
 <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
 
+
 <body class="profile-page sidebar-collapse">
     <div class="page-header header-filter" data-parallax="true" style="background-image: url('../assets/img/city-profile.jpg');"></div>
     <div class="main main-raised">
@@ -11,7 +12,7 @@
             <div class="col-md-6 ml-auto mr-auto">
               <div class="profile">
                 <div class="avatar">
-                  <img *ngIf="igProfilePicture" src="{{igProfilePicture}}" alt="Circle Image" class="img-raised rounded-circle img-fluid">
+                  <img  src="https://scontent.cdninstagram.com/vp/0d6d4a227d713196552eb2ddd74c9b17/5C34CEB0/t51.2885-19/s150x150/14659248_1672680513062258_2627081892662345728_n.jpg" alt="Circle Image" class="img-raised rounded-circle img-fluid">
                 </div>
                 <div class="name">
                   <h3 *ngIf="user?.name" class="title">{{user.name}}</h3>
@@ -40,25 +41,40 @@
                 <ng-container *ngFor="let tw of twitter">
                   <ng-container *ngIf="tw.twitter.username != ''">
                     <div class="col-md-4">
-                    <a class="twitter-timeline" [attr.data-tweet-limit]="tw.twitter.postslimit" href="https://twitter.com/{{tw.twitter.username}}"></a>
+                      <div class="card">
+                        <div class="card-header card-header-primary">
+                          <div class="card-title" style="text-align: center;margin-top: 0;">
+                              <a href="http://twitter.com/{{tw.twitter.username}}"> <i class="fa fa-twitter fa-lg"></i>   {{tw.twitter.username}}</a>
+                          </div> 
+                        </div>
+                        <div class="card-body">
+                          <a class="twitter-timeline" [attr.data-tweet-limit]="tw.twitter.postslimit" href="https://twitter.com/{{tw.twitter.username}}"></a>
+                        </div>
+                      </div>
                     </div>
                   </ng-container>
                 </ng-container>
             </ng-container>   
 
-            
-
-
             <ng-container *ngIf="instagram">
               <ng-container *ngFor="let insta of instagram">
                 <ng-container *ngIf="insta.instagram.accesstoken != ''">
                   <div class="col-md-4">
-                    <ul  style="list-style: none;">
-                      <li *ngFor="let objeto of insta.data.data;let myIndex = index" style="margin: 12px 5px;">
-                        <a *ngIf="myIndex < insta.instagram.postslimit" href="{{objeto.link}}"><img src={{objeto.images.standard_resolution.url}} class="img-fluid rounded"  alt=""></a>
-                      </li>
-                    </ul>
+                    <div class="card">
+                      <div class="card-header card-header-primary">
+                          <div class="card-title" style="text-align: center;margin-top: 0;">
+                            <a href="http://instagram.com/{{insta.data.data[0].user.username}}"> <i class="fa fa-instagram fa-lg"></i>   {{insta.data.data[0].user.username}}</a>
+                          </div>   
+                      </div>
+                      <div class="card-body">
+                        <ul  style="list-style: none;padding: 5px;">                        
+                          <li *ngFor="let objeto of insta.data.data;let myIndex = index" style="margin: 12px 5px;">
+                            <a *ngIf="myIndex < insta.instagram.postslimit" href="{{objeto.link}}"><img src={{objeto.images.standard_resolution.url}} class="img-fluid rounded"  alt=""></a>
+                          </li>
+                        </ul>
+                      </div>
                   </div>
+                </div>
                 </ng-container>
               </ng-container>
             </ng-container>   

@@ -1,3 +1,11 @@
 .angular-with-newlines {
     display: inline-block
 }
+
+body > div > div.timeline-Header.timeline-InformationCircle-widgetParent > h1{
+    display:none !important;
+}
+
+.timeline-Header .timeline-InformationCircle-widgetParent{
+    display:none !important;
+}
