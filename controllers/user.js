@@ -46,6 +46,7 @@ function saveUser(req,res){
 }
 
 
+
 function getUserByUsername(req,res){    
     User.find({ username: req.params.username},(err, user)=>{
         if(err) return res.status(500).send({ message: `Error en la búsqueda ${err}`})
