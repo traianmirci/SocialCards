@@ -2,6 +2,8 @@
 <link rel="stylesheet" type="text/css" href="node_modules/bootstrap/dist/js/bootstrap.js" />
 <link rel="script" type="text/css" href="node_modules/bootstrap/dist/js/bootstrap.js" />
 <script src="https://connect.facebook.net/en_US/all.js"></script>
+<link rel="stylesheet" type="text/css" href="/node_modules/angular2-toaster/toaster.min.css" />
+
 
 
 
@@ -60,7 +62,7 @@
                                     <span class="check"></span>
                                   </span>
                                 </label>
-                                <ng-container *ngIf="link.type == 'twitter'">
+                                <ng-container *ngIf="link?.type == 'twitter'">
                                     <i class="fa fa-twitter"></i>
                                 </ng-container>
                                 <ng-container *ngIf="link.type == 'link'">
@@ -151,11 +153,23 @@
                             <div class="ripple-container"></div></a>
                           </li>
                           <li class="nav-item">
-                            <a class="nav-link" href="#link" data-toggle="tab">
-                              <i class="fa fa-link fa-lg"></i> Link
+                            <a class="nav-link" href="#facebook" data-toggle="tab">
+                              <i class="fa fa-facebook-square fa-lg"></i> Facebook
                               <div class="ripple-container"></div>
                             <div class="ripple-container"></div></a>
                           </li>
+                          <li class="nav-item">
+                            <a class="nav-link" href="#youtube" data-toggle="tab">
+                              <i class="fa fa-youtube fa-lg"></i> Youtube
+                              <div class="ripple-container"></div>
+                            <div class="ripple-container"></div></a>
+                          </li>
+                          <li class="nav-item">
+                              <a class="nav-link" href="#link" data-toggle="tab">
+                                <i class="fa fa-link fa-lg"></i> Link
+                                <div class="ripple-container"></div>
+                              <div class="ripple-container"></div></a>
+                            </li>
                         </ul>
                       </div>
                     </div>
@@ -167,18 +181,97 @@
                         <input [(ngModel)]="instagramPostLimit" name="instagramPostLimit" type="text" id="instagramPostLimit" class="form-control" placeholder="post limit" required="" autofocus="">
                       </div>
                       <div class="tab-pane" id="twitter">
-                          <form action="" class="">
-                          <label for="inputTwitterUsername" class="sr-only">Username</label>
-                          twitter.com/<input [(ngModel)]="twitterNuevo.twitterUsername" name="twitterUsername" type="text" id="inputTwitterUsername" class="form-control" placeholder="username" required="" autofocus="">
-                          <input [(ngModel)]="twitterNuevo.twitterPostsLimit" name="twitterUsername" type="text" id="inputTwitterUsername" class="form-control" placeholder="post limit" required="" autofocus="">
-                          </form>
-                          <div class="modal-footer">
-                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                              <button type="button" class="btn btn-primary" (click)="insertTwitter()">Save changes</button>
-                          </div> 
-                        </div>
-                      <div class="tab-pane" id="link">
+                        <form action="" class="">
+                        <label for="inputTwitterUsername" class="sr-only">Username</label>
+                        twitter.com/<input [(ngModel)]="twitterNuevo.twitterUsername" name="twitterUsername" type="text" id="inputTwitterUsername" class="form-control" placeholder="username" required="" autofocus="">
+                        <input [(ngModel)]="twitterNuevo.twitterPostsLimit" name="twitterUsername" type="text" id="inputTwitterUsername" class="form-control" placeholder="post limit" required="" autofocus="">
+                        </form>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" (click)="insertTwitter()">Save changes</button>
+                        </div> 
+                      </div>
+                      <div class="tab-pane" id="facebook">
+                        <form action="" class="">
+                        <label for="inputTwitterUsername" class="sr-only">Username</label>
+                        <input [(ngModel)]="twitterNuevo.twitterUsername" name="twitterUsername" type="text" id="inputTwitterUsername" class="form-control" placeholder="username" required="" autofocus="">
+                        <input [(ngModel)]="twitterNuevo.twitterPostsLimit" name="twitterUsername" type="text" id="inputTwitterUsername" class="form-control" placeholder="post limit" required="" autofocus="">
+                        </form>
                         
+                        <div class="d-flex flex-row mt-2">
+                          <ul class="nav nav-tabs-vertical nav-tabs--vertical nav-tabs--left" role="navigation">
+                            <li class="nav-item">
+                              <a href="#fbpagina" class="nav-link active" data-toggle="tab" role="tab" aria-controls="fbpagina">Página</a>
+                            </li>
+                            <li class="nav-item">
+                              <a href="#fbvideo" class="nav-link" data-toggle="tab" role="tab" aria-controls="fbvideo">Video</a>
+                            </li>
+                            <li class="nav-item">
+                              <a href="#fbpublicacion" class="nav-link" data-toggle="tab" role="tab" aria-controls="fbpublicacion">Publicación</a>
+                            </li>
+                            <li class="nav-item">
+                              <a href="#fbcomentarios" class="nav-link" data-toggle="tab" role="tab" aria-controls="fbcomentarios">Comentarios</a>
+                            </li>
+                          </ul>
+                          <div class="tab-content" style="width: 100%;">
+                            <div class="tab-pane fade show active" id="fbpagina" role="tabpanel">
+                              <p>URL de la página de Facebook</p>
+                              <input [(ngModel)]="facebookNuevo.url" name="fbpagina" type="text" id="inputfbpagina" class="form-control" placeholder="https://www.facebook.com/facebook" required="" autofocus="">
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary" (click)="insertFacebook('fbpagina')">Save changes</button>
+                              </div> 
+                            </div>
+                            <div class="tab-pane fade" id="fbvideo" role="tabpanel">
+                              <p>URL del video</p>
+                              <input [(ngModel)]="facebookNuevo.url" name="fbpagina" type="text" id="inputfbpagina" class="form-control" placeholder="https://www.facebook.com/facebook/videos/10153231379946729/" required="" autofocus="">
+                              <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                  <button type="button" class="btn btn-primary" (click)="insertFacebook('fbvideo')">Save changes</button>
+                              </div> 
+                            </div>
+                            <div class="tab-pane fade" id="fbpublicacion" role="tabpanel">
+                              <p>URL de la publicación</p>
+                              <input [(ngModel)]="facebookNuevo.url" name="fbpagina" type="text" id="inputfbpagina" class="form-control" placeholder="https://www.facebook.com/20531316728/posts/10154009990506729/" required="" autofocus="">
+                              <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                  <button type="button" class="btn btn-primary" (click)="insertFacebook('fbpublicacion')">Save changes</button>
+                              </div> 
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="tab-pane" id="youtube">
+                          <div class="d-flex flex-row mt-2">
+                              <ul class="nav nav-tabs-vertical nav-tabs--vertical nav-tabs--left" role="navigation">
+                                <li class="nav-item">
+                                  <a href="#ytvideo" class="nav-link active" data-toggle="tab" role="tab" aria-controls="fbpagina">Video</a>
+                                </li>
+                                <li class="nav-item">
+                                  <a href="#ytplaylist" class="nav-link" data-toggle="tab" role="tab" aria-controls="fbvideo">Playlist</a>
+                                </li>
+                              </ul>
+                              <div class="tab-content" style="width: 100%;">
+                                <div class="tab-pane fade show active" id="ytvideo" role="tabpanel">
+                                  <p>URL del video</p>
+                                  <input [(ngModel)]="youtubeNuevo.url" name="ytvideo" type="text" id="inputytvideo" class="form-control" placeholder="https://www.youtube.com/watch?v=dQw4w9WgXcQ" required="" autofocus="">
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary" (click)="insertYoutube('video')">Save changes</button>
+                                  </div> 
+                                </div>
+                                <div class="tab-pane fade" id="ytplaylist" role="tabpanel">
+                                  <p>URL de la playlist</p>
+                                  <input [(ngModel)]="youtubeNuevo.url" name="ytplaylist" type="text" id="inputytplaylist" class="form-control" placeholder="https://www.youtube.com/playlist?list=PLB0xGdhVdMlZ9zqSvS7kz7mHzR4o1tT5M" required="" autofocus="">
+                                  <div class="modal-footer">
+                                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                      <button type="button" class="btn btn-primary" (click)="insertYoutube('playlist')">Save changes</button>
+                                  </div> 
+                                </div>
+                              </div>
+                            </div>
+                      </div>
+                      <div class="tab-pane" id="link">
                           <form action="" class="">
                               <label for="inputTitleLink" class="sr-only">Titulo</label>
                               <input [(ngModel)]="linkNuevo.name" name="linkTitle" type="text" id="inputLinkName" class="form-control" placeholder="Titulo" required="" autofocus="">
@@ -188,7 +281,7 @@
                             </form><br><br>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary" (click)="newLink()">Save changes</button>
+                                <button type="button" class="btn btn-primary" (click)="newLink()" data-dismiss="modal">Save changes</button>
                             </div> 
                       </div>
                     </div>

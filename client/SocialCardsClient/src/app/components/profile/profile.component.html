@@ -1,6 +1,8 @@
 <link rel="stylesheet" type="text/css" href="../../../assets/css/material-kit.css" />
 <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+<script type="text/javascript" src="https://connect.facebook.net/en_US/sdk.js"></script>
+
 
 
 <body class="profile-page sidebar-collapse">
@@ -21,7 +23,7 @@
                   <a *ngIf="user?.twitterUsername" href="http://twitter.com/{{user.twitterUsername}}" class="" style="padding:5px !important;color: #2b99ea;"><i class="fa fa-twitter fa-2x"></i></a>
                   <br>
                   <div class="angular-with-newlines" *ngFor="let link of links;let i = index">
-                      <a href="{{link.url}}" class="btn btn-link btn-pinterest" style="padding:5px !important"><i class="fa fa-link fa-lg"></i> {{link.name}}</a>
+                      <a *ngIf="link.type == 'link'" href="{{link.url}}" class="btn btn-link btn-pinterest" style="padding:5px !important"><i class="fa fa-link fa-lg"></i> {{link.name}}</a>
                   </div>
                 </div>
               </div>
@@ -50,7 +52,51 @@
                       </div>
                   </ng-container>
                 </ng-container>
-            </ng-container>   
+            </ng-container>
+            
+            
+            <ng-container *ngIf="facebook">
+              <ng-container *ngFor="let fb of facebook">
+                <ng-container *ngIf="fb.url != ''">
+                  <ng-container *ngIf="fb.facebooktype == 'fbpagina'">
+                    <div class="card">
+                        <div class="card-header card-header-primary" style="    background: linear-gradient(60deg, #2666da, #0088a7);">
+                          <div class="card-title" style="text-align: center;margin-top: 0;">
+                              <i class="fa fa-facebook-square fa-lg"></i> Página de facebook
+                          </div>   
+                        </div>
+                        <div class="card-body">
+                          <div class="fb-page" [attr.data-href]="fb.url" data-tabs="timeline" data-small-header="true" data-adapt-container-width="true" data-hide-cover="true" data-show-facepile="true"><blockquote [attr.cite]="fb.url"  class="fb-xfbml-parse-ignore"><a href="{{fb.url}}">Facebook</a></blockquote></div>
+                        </div>
+                    </div>
+                  </ng-container>
+                  <ng-container *ngIf="fb.facebooktype == 'fbvideo'">
+                      <div class="card">
+                          <div class="card-header card-header-primary" style="    background: linear-gradient(60deg, #2666da, #0088a7);">
+                            <div class="card-title" style="text-align: center;margin-top: 0;">
+                              <i class="fa fa-facebook-square fa-lg"></i> Video de facebook
+                            </div>   
+                          </div>
+                          <div class="card-body">
+                            <iframe [src]='fb.url | safe' width="297" height="166" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media" allowFullScreen="true"></iframe>
+                          </div>
+                      </div>
+                  </ng-container>
+                  <ng-container *ngIf="fb.facebooktype == 'fbpublicacion'">
+                      <div class="card">
+                          <div class="card-header card-header-primary" style="    background: linear-gradient(60deg, #2666da, #0088a7);">
+                            <div class="card-title" style="text-align: center;margin-top: 0;">
+                                <i class="fa fa-facebook-square fa-lg"></i> Publicación de facebook
+                            </div>   
+                          </div>
+                          <div class="card-body">
+                            <iframe [src]='fb.url | safe' width="297" height="326" style="border:none;overflow:hidden" scrolling="yes" frameborder="0" allowTransparency="true" allow="encrypted-media"></iframe>
+                          </div>
+                      </div>
+                  </ng-container>
+                </ng-container>
+              </ng-container>
+            </ng-container>
 
             <ng-container *ngIf="instagram">
               <ng-container *ngFor="let insta of instagram">
@@ -63,13 +109,9 @@
                       </div>
                       <div class="card-body">
                         <ul  style="list-style: none;padding: 5px;">
-                            
-
-                             
-
                           <li *ngFor="let objeto of insta.data.data;let myIndex = index" style="margin: 12px 5px;">
                             <a *ngIf="myIndex < insta.instagram.postslimit" href="{{objeto.link}}">
-                              <div class="card bg-transparent text-white individual" style="padding-top: 0px;">
+                              <div class="card bg-transparent text-white individual" style="padding-top: 0px;    margin: 0px;">
                                   <img class="card-img" src="{{objeto.images.standard_resolution.url}}" alt="Card image">
                                   <div class="card-img-overlay">
                                     <h5 class="card-title">{{objeto.caption?.text}}</h5>
@@ -87,9 +129,46 @@
                 </ng-container>
               </ng-container>
             </ng-container>
+
+            <ng-container *ngIf="youtube">
+                <ng-container *ngFor="let yt of youtube">
+                  <ng-container *ngIf="yt.url != ''">
+                    <ng-container *ngIf="yt.youtubetype == 'video'">
+                      <div class="card">
+                          <div class="card-header card-header-danger">
+                            <div class="card-title" style="text-align: center;margin-top: 0;">
+                                <i class="fa fa-youtube fa-lg"></i> Video de youtube
+                            </div>   
+                          </div>
+                          <div class="card-body">
+                            <iframe width="296" height="215" [src]="'https://www.youtube.com/embed/'+yt.url | safe"></iframe>
+                          </div>
+                      </div>
+                    </ng-container>
+                    <ng-container *ngIf="yt.youtubetype == 'playlist'">
+                        <div class="card">
+                            <div class="card-header card-header-danger">
+                              <div class="card-title" style="text-align: center;margin-top: 0;">
+                                  <i class="fa fa-youtube fa-lg"></i> Playlist de youtube
+                              </div>   
+                            </div>
+                            <div class="card-body">                             
+                              <iframe width="296" height="215" [src]="'http://www.youtube.com/embed?listType=playlist&list='+yt.url | safe"></iframe>
+                            </div>
+                        </div>
+                      </ng-container>
+                  </ng-container>
+                </ng-container>
+              </ng-container>
         </div>
       </div>
+    
     </div>
+
+
+<br>
+</div>
+
     <footer class="footer footer-default">
       <div class="container">
         <nav class="float-left">

@@ -33,6 +33,10 @@ import { StoreinstagramComponent } from './components/storeinstagram/storeinstag
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ToasterModule, ToasterService} from 'angular2-toaster';
 
+import { FacebookModule } from 'ngx-facebook';
+import { SafePipe } from './pipes/safe.pipe';
+
+
 
 
 
@@ -70,7 +74,8 @@ const appRoutes: Routes = [
     IndexComponent,
     ProfileComponent,
     NotFound404Component,
-    StoreinstagramComponent
+    StoreinstagramComponent,
+    SafePipe
   ],
   imports: [
     BrowserModule,
@@ -79,7 +84,9 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     AngularFontAwesomeModule,
     BrowserAnimationsModule,
-     ToasterModule.forRoot()
+     ToasterModule.forRoot(),
+     FacebookModule.forRoot()
+
   ],
   providers: [
     DataService,

@@ -28,7 +28,14 @@ const LinkSchema = new mongoose.Schema({
     instagram: {
         accesstoken: {type: String},
         postslimit: {type: Number}
-    }
+    },
+
+    
+    facebooktype: String, enum: ['fbpagina','fbvideo','fbpublicacion','fbcomentarios'],
+
+    youtubetype: String, enum: ['video','playlsit']
+
+    
 
 })
 

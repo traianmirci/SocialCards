@@ -30,6 +30,14 @@ function saveLink(req,res){
         link.twitter.postslimit= req.body.twitterPostsLimit ;
     }
 
+    if(req.body.type == 'facebook'){
+        link.facebooktype = req.body.facebooktype 
+    }
+
+    if(req.body.type == 'youtube'){
+        link.youtubetype = req.body.youtubetype 
+    }
+
     link.save((err, linkStored)=>{
         if (err){
             res.status(500).send({message: `Error al guardar el link ${err}`})
