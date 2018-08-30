@@ -84,4 +84,8 @@ export class DataService {
   showInstagramFeed(username){
     return this.http.get<any>('http://localhost:3000/api/user/showInstagram/'.concat(username))
   }
+
+  obtenerImagenPerfilInstagram(accesscode){
+    return this.http.get<any>('http://localhost:3000/api/user/obtenerImagenPerfilInstagram/'.concat(accesscode))
+  }
 }

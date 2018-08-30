@@ -7,6 +7,8 @@ const config = require('../config')
 var jwt = require('jwt-simple');
 const services = require('../services/')
 const https = require('https');
+const crypto = require('crypto')
+
 
 
 
@@ -30,9 +32,12 @@ function saveUser(req,res){
     user.occupation = req.body.occupation;
     user.country = req.body.country;
 
+
     for (e in req.body.links){
         user.links.push(e)
     }
+
+    user.gravatar();
 
     user.save((err, userStored)=>{
         if (err){
@@ -66,9 +71,10 @@ function getUser(req,res){
     User.findById(idUsuario,(err, user)=>{
         if(err) return res.status(500).send({ message: `Error en la búsqueda ${err}`})
         if(!user) return res.status(404).send({message: `El usuario no existe`})
-
+        
+        
         res.status(200).send({user})
-        console.log('desde aqui')
+        //console.log('desde aqui',user.gravatar())
     })
 }
 
@@ -98,10 +104,18 @@ function updateUser(req,res){
     var decoded = jwt.decode(token, 'clavetokensocialcards');
     var idUsuario = decoded.sub;
     console.log("edito",req.body)
+
+    const md5 = crypto.createHash('md5').update(req.body.email).digest('hex')
+    let gravatar = `https://gravatar.com/avatar/${md5}?s=200&d=retro`
+    console.log('mi gravatar',gravatar)
+    req.body.gravatar = gravatar;
+    console.log('lo inserto?',req.body.gravatar)
+    
     User.findByIdAndUpdate(idUsuario,req.body,{new: true}, (err, userUpdated)=>{
         if(err) return res.status(500).send({ message: `Error en la actualización ${err}`})
     
         res.status(200).send({userUpdated})
+        console.log("el usuario updated".userUpdated)
     })
 }
 
@@ -120,6 +134,9 @@ function deleteUser(req,res){
 
 
 function signUp(req, res){
+    const md5 = crypto.createHash('md5').update(req.body.email).digest('hex')
+    let pgravatar = `https://gravatar.com/avatar/${md5}?s=200&d=retro`
+
     const userReq = new User({
         name: req.body.name,
         email: req.body.email,
@@ -128,7 +145,8 @@ function signUp(req, res){
         //password: req.body.password,
         //signup tampoco hace falta porque la almacena por defecto con la fecha actual
         //signUpDate: req.body.signUpDate,
-        password: req.body.password
+        password: req.body.password,
+        gravatar: pgravatar
     })
 
     User.findOne({email: req.body.email},(err,user)=>{
@@ -220,6 +238,24 @@ function devolverInstagramJson(res,body){
     res.status(200).send(body)
 }
 
+//para devolver la imagen de perfil a partir de un accesstoken
+function obtenerImagenPerfilInstagram(req,res){
+
+    console.log(req.params.accesstoken)
+    https.get('https://api.instagram.com/v1/users/self?access_token='.concat(req.params.accesstoken), res2 => {
+        res2.setEncoding("utf8");
+        let body = "";
+        res2.on("data", data => {
+          body += data;
+        });
+        res2.on("end", () => {
+          var resultado = JSON.parse(body);
+          return res.status(200).send(resultado)
+          console.log("devuelvo esto",resultado)
+        });
+      });
+
+}
 
 
 
@@ -234,5 +270,6 @@ module.exports = {
     getUserByUsername,
     saveInstagram,
     showInstagram,
-    devolverInstagramJson
+    devolverInstagramJson,
+    obtenerImagenPerfilInstagram
 }

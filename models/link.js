@@ -27,7 +27,9 @@ const LinkSchema = new mongoose.Schema({
     },
     instagram: {
         accesstoken: {type: String},
-        postslimit: {type: Number}
+        postslimit: {type: Number},
+        username: String,
+        profile_picture: String,
     },
 
     

@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../../services/data.service';
 import { Router } from '@angular/router';
+import { Link } from '../../models/link';
+import { User } from '../../models/user'
+import {ToasterModule, ToasterService, ToasterConfig,Toast} from 'angular2-toaster';
+import {Md5} from 'ts-md5/dist/md5';
+
 
 
 @Component({
@@ -9,17 +14,14 @@ import { Router } from '@angular/router';
   styleUrls: ['./user.component.css']
 })
 export class UserComponent implements OnInit {
-  id: string;
-  name: String;
-  email:  String;
-  password: String;
-  signUpDate: {type: Date};
-  lastLogin: Date;
-  picture: String;
-  biography: String;
-  userUrl: String;
-  occupation: { type: String, enum: ['Student','Developer']};
-  country: { type: String, enum: ['Spain','USA','France']};
+  user:User = {
+    name: "",
+    email:  "",
+    password: "",
+    picture: "",
+    biography: "",
+    username: "",
+  };
 
   links: Link[];
 
@@ -27,59 +29,39 @@ export class UserComponent implements OnInit {
 
   userData = {}
 
-  constructor(private dataService:DataService,private _router:Router  ) { }
+  gravatarImage;
+
+  constructor(private dataService:DataService,private _router:Router,private toasterService:ToasterService) {
+    this.toasterService = toasterService;  }
 
   ngOnInit() {
-    this.name = 'Traian';
-    this.id = "5b5a5998be57931458f22886";
-     
 
     this.dataService.getLoggedUser().subscribe((user)=>{
-      this.email = user.user.email;console.log(user);
-      this.name = user.user.name;
-      this.picture = user.user.picture;
-      this.biography = user.user.biography;
-      this.userUrl = user.user.userUrl;
-      this.occupation = user.user.occupation;
-      this.country = user.user.country;
-    }
-    )
-    this.dataService.getLinksUser().subscribe((links)=>{this.links = links;})
-  }
+      this.user = user.user;
+      console.log("mi user",this.user)
+      this.getGravatarUrl()
+    })
 
-  onClick(){
-    console.log('Hola')
-    this.name = "nombre cambiado"
-  }
-
-  addLink(link){
-    console.log(link)
-    this.links.push(link);
-    return false;
-  }
-
-  deleteLink(link){
-    console.log(link)
-    for(let i=0;i<this.links.length;i++){
-      if(this.links[i]==link){
-        this.links.splice(i, 1)
-      }
-    }
-  }
-
-  toggleEdit(){
-    this.isEdit = !this.isEdit;
+    this.dataService.getLinksUser().subscribe((links)=>{this.links = links;this.obtenerImagenesInstagram();})
+    
   }
 
 resultado:String =  "";
 error:Boolean;
 
-  updateUser(userData){
-    console.log("hagO:",this.userData)  
-    this.dataService.updateUser(this.userData)
+  updateUser(user){
+    console.log("hagO:",this.user)  
+    this.dataService.updateUser(this.user)
       .subscribe(
         res => {
-          this._router.navigate(['/dashboard'])
+          //this._router.navigate(['/dashboard'])
+          console.log(res)
+          var toast : Toast = {
+            type: 'success',
+            title: 'Usuario editado con éxito',
+            body: "Los datos de usuario se han cambiado correctamente",
+            };
+          this.toasterService.pop(toast);
         },
         err => {
           console.log("noooo",err)
@@ -103,12 +85,27 @@ error:Boolean;
         }
       )
   }
-}
 
-interface Link{
-  name: String,
-  url: string,
-  clicks: [{visits: Number, date:Date}]
-  publicationDate: Date,
-  user: UserComponent
+  obtenerImagenesInstagram(){
+    this.links.forEach(element => {
+      if(element.type == 'instagram'){
+        this.dataService.obtenerImagenPerfilInstagram(element.instagram.accesstoken).subscribe((resultado)=>{
+          element.instagram.username = resultado.data.username;
+          element.instagram.profile_picture = resultado.data.profile_picture;
+        })
+      }
+    });
+
+  }
+
+  cambiarImagen(link){
+    console.log(link)
+  }
+
+  getGravatarUrl(){
+    console.log("el email es",this.user.email)
+    let hash = Md5.hashStr(this.user.email.toString())
+    this.gravatarImage = 'https://www.gravatar.com/avatar/'+hash+'?s=200&d=retro'
+    
+  }
 }

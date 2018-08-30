@@ -3,6 +3,7 @@ import { DataService } from '../../services/data.service';
 import { Router } from '@angular/router';
 import { Link } from '../../models/link';
 import {ToasterModule, ToasterService, ToasterConfig,Toast} from 'angular2-toaster';
+import {Md5} from 'ts-md5/dist/md5';
 
 
 
@@ -19,6 +20,7 @@ export class DashboardComponent implements OnInit {
     biography: "",
     twitterUsername: "",
     user: "",
+    email: " "
     
   }
   linkNuevo = {
@@ -33,7 +35,7 @@ export class DashboardComponent implements OnInit {
     active:true,
     type:"twitter",
     twitterUsername: "",
-    twitterPostsLimit: 5
+    twitterPostsLimit: 5,
   }
   instagramPostsLimit:string;
 
@@ -53,6 +55,7 @@ export class DashboardComponent implements OnInit {
     url:""
   }
   
+  avatarUrl:any
   
 
   constructor(private dataService:DataService,private _router:Router,private toasterService:ToasterService) {
@@ -97,6 +100,8 @@ export class DashboardComponent implements OnInit {
         }
       )
 
+      console.log("mi usuario",this.user)
+
   }
   
   getLinks() {      
@@ -104,8 +109,10 @@ export class DashboardComponent implements OnInit {
   }
   getUser() {      
     this.dataService.getLoggedUser().subscribe((user)=>{
-      this.user = user;
-      //console.log("que es mejor :",user,"o",user.user);
+      console.log("el usuario que saco",user)
+      this.user = user.user;
+      this.getAvatarUrl();
+      console.log("y el usuario que dejo guardado",this.user)
     })
   }
   newLink(link){
@@ -186,6 +193,12 @@ export class DashboardComponent implements OnInit {
       } 
    } 
    
+  }
+
+  getAvatarUrl(){
+    console.log("el email es",this.user.email)
+    let hash = Md5.hashStr(this.user.email)
+    this.avatarUrl = 'https://www.gravatar.com/avatar/'+hash+'?s=200&d=retro'
   }
 
 

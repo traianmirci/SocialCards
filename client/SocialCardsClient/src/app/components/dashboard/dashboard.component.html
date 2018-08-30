@@ -14,13 +14,14 @@
     <div class="row">
       <div class="col-md-4 order-md-2 mb-4">
           <div class="card card-profile">
-            <div class="card-avatar" style="    margin: -20px auto 0;">
-              <a href="#pablo">
-                <img class="img" src="https://avatars1.githubusercontent.com/u/25345045">
+            <div class="card-avatar con-badge" style="margin: -20px auto 0;">
+                <span class="notify-badge">NEW</span>
+              <a href="/{{user?.username}}">
+                <img *ngIf="user.email != '' " class="img" src="{{avatarUrl}}">
               </a>
             </div>
             <div class="card-body">
-              <a href="/{{user?.user?.username}}" class="h6 card-category text-gray">@traianmirci</a>
+              <a href="/{{user?.username}}" class="h6 card-category text-gray">@{{user?.username}}</a>
               <h4 class="card-title">Traian Alexandru Mirci</h4>
               <p class="card-description">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis nunc diam, egestas tempus libero vitae, ullamcorper faucibus lectus. Duis quis lorem nec sem dictum lacinia. 
@@ -41,18 +42,6 @@
               <div class="card-body table-responsive">
                       <table class="table">
                         <tbody>
-                          
-                            <!--<ng-container *ngIf="user.user.twitterUsername">
-                                <pre>{{user.user.twitterUsername}}</pre>
-<br>
-                               </ng-container>      
-                               
-                               <ng-container *ngIf="user.user.instagramToken">
-                                  <pre>{{user.user.instagramToken}}</pre>
-  <br>
-                                 </ng-container>  -->
-
-
                           <tr *ngFor="let link of links;let i = index">
                             <td>
                               <div class="form-check">
@@ -62,7 +51,7 @@
                                     <span class="check"></span>
                                   </span>
                                 </label>
-                                <ng-container *ngIf="link?.type == 'twitter'">
+                                <ng-container *ngIf="link.type == 'twitter'">
                                     <i class="fa fa-twitter"></i>
                                 </ng-container>
                                 <ng-container *ngIf="link.type == 'link'">
@@ -73,7 +62,7 @@
                             <ng-container *ngIf="link.type == 'twitter'">
                               <td><i class="fa fa-twitter"></i><br>Username: {{link.twitter.username}}<br>Límite de posts: {{link.twitter.postslimit}}</td>
                             </ng-container>    
-                            <td>{{link.name}}<br>{{link.url}}</td>
+                            <td style="word-break: break-all;">{{link.name}}<br>{{link.url}}</td>
                             <td class="td-actions text-right">
                               <button type="button" rel="tooltip" title="" class="btn btn-primary btn-link btn-sm" data-original-title="Edit Task" (click)="linkEditFunction(link)" data-toggle="modal" data-target="#modalEditLink">
                                 <i class="fa fa-pencil fa-fw"></i>
@@ -101,7 +90,7 @@
                   <p class="card-category">Un poco sobre ti...</p>
                 </div>
                 <div class="card-body table-responsive">
-                  <textarea name="biography"   class="form-control" aria-label="With textarea" rows="5" style="resize: vertical;" >{{user?.user?.biography}}</textarea>
+                  <textarea name="biography"   class="form-control" aria-label="With textarea" rows="5" style="resize: vertical;" >{{user?.biography}}</textarea>
                   <div class="form-row text-center"><br>
                       <div class="col-12">
                           <button type="submit" class="btn btn-warning">Actualizar biografía<div class="ripple-container"></div></button>
@@ -192,12 +181,6 @@
                         </div> 
                       </div>
                       <div class="tab-pane" id="facebook">
-                        <form action="" class="">
-                        <label for="inputTwitterUsername" class="sr-only">Username</label>
-                        <input [(ngModel)]="twitterNuevo.twitterUsername" name="twitterUsername" type="text" id="inputTwitterUsername" class="form-control" placeholder="username" required="" autofocus="">
-                        <input [(ngModel)]="twitterNuevo.twitterPostsLimit" name="twitterUsername" type="text" id="inputTwitterUsername" class="form-control" placeholder="post limit" required="" autofocus="">
-                        </form>
-                        
                         <div class="d-flex flex-row mt-2">
                           <ul class="nav nav-tabs-vertical nav-tabs--vertical nav-tabs--left" role="navigation">
                             <li class="nav-item">
@@ -208,9 +191,6 @@
                             </li>
                             <li class="nav-item">
                               <a href="#fbpublicacion" class="nav-link" data-toggle="tab" role="tab" aria-controls="fbpublicacion">Publicación</a>
-                            </li>
-                            <li class="nav-item">
-                              <a href="#fbcomentarios" class="nav-link" data-toggle="tab" role="tab" aria-controls="fbcomentarios">Comentarios</a>
                             </li>
                           </ul>
                           <div class="tab-content" style="width: 100%;">

@@ -28,6 +28,7 @@ api.post('/signIn', userController.signIn)
 //instagram
 api.get('/user/saveInstagram/:accesstoken/:postslimit',linkController.saveInstagram)
 api.get('/user/showInstagram/:accesstoken',userController.showInstagram)
+api.get('/user/obtenerImagenPerfilInstagram/:accesstoken',userController.obtenerImagenPerfilInstagram)
 
 
 //Devuelve solo un  link
