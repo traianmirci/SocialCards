@@ -99,18 +99,34 @@ function getUsers(req,res){
 }
 
 function updateUser(req,res){
-    console.log("porque no entro")
     var token = req.headers['authorization'].replace("Bearer ","");
     var decoded = jwt.decode(token, 'clavetokensocialcards');
     var idUsuario = decoded.sub;
     console.log("edito",req.body)
 
-    const md5 = crypto.createHash('md5').update(req.body.email).digest('hex')
-    let gravatar = `https://gravatar.com/avatar/${md5}?s=200&d=retro`
-    console.log('mi gravatar',gravatar)
-    req.body.gravatar = gravatar;
-    console.log('lo inserto?',req.body.gravatar)
+    if(req.body.email!=null){
+        const md5 = crypto.createHash('md5').update(req.body.email).digest('hex')
+        let gravatar = `https://gravatar.com/avatar/${md5}?s=200&d=retro`
+        console.log('mi gravatar',gravatar)
+        req.body.gravatar = gravatar;
+        console.log('lo inserto?',req.body.gravatar)
+    }
+   
     
+    User.findByIdAndUpdate(idUsuario,req.body,{new: true}, (err, userUpdated)=>{
+        if(err) return res.status(500).send({ message: `Error en la actualización ${err}`})
+    
+        res.status(200).send({userUpdated})
+        console.log("el usuario updated".userUpdated)
+    })
+}
+
+function updateUserAvatar(req,res){
+    var token = req.headers['authorization'].replace("Bearer ","");
+    var decoded = jwt.decode(token, 'clavetokensocialcards');
+    var idUsuario = decoded.sub;
+
+    console.log(req.body,"?")
     User.findByIdAndUpdate(idUsuario,req.body,{new: true}, (err, userUpdated)=>{
         if(err) return res.status(500).send({ message: `Error en la actualización ${err}`})
     
@@ -146,7 +162,10 @@ function signUp(req, res){
         //signup tampoco hace falta porque la almacena por defecto con la fecha actual
         //signUpDate: req.body.signUpDate,
         password: req.body.password,
-        gravatar: pgravatar
+        gravatar: pgravatar,
+        //asigno tambien avatar como gravatar para tener al principio un avatar,despues
+        //el avatar se podra cambiando desde /user
+        avatar: pgravatar
     })
 
     User.findOne({email: req.body.email},(err,user)=>{
@@ -258,7 +277,6 @@ function obtenerImagenPerfilInstagram(req,res){
 }
 
 
-
 module.exports = {
     getUser,
     getUsers,
@@ -271,5 +289,6 @@ module.exports = {
     saveInstagram,
     showInstagram,
     devolverInstagramJson,
-    obtenerImagenPerfilInstagram
+    obtenerImagenPerfilInstagram,
+    updateUserAvatar
 }

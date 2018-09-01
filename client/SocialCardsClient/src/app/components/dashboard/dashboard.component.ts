@@ -79,6 +79,8 @@ export class DashboardComponent implements OnInit {
     (document,"script","twitter-wjs");
 
     console.log("a ver si desde aqui lo veo",this.dataService.loggedInUser)
+    
+    //this.loadScripts();
 }
 
   ngOnInit() {
@@ -117,15 +119,9 @@ export class DashboardComponent implements OnInit {
   }
   newLink(link){
     
-    this.dataService.newLink(this.linkNuevo).subscribe((success)=>{console.log(JSON.stringify(success))})
+    this.dataService.newLink(this.linkNuevo).subscribe((success)=>{console.log(JSON.stringify(success));this.links.push(success.link)})
 
-    var toast : Toast = {
-      type: 'success',
-      title: 'Elemento añadido correctamente',
-      body: this.linkNuevo.name+" añadido correctamente",
-      };
-    this.toasterService.pop(toast);
-    this.links.push(this.linkNuevo);
+    
   } 
   linkEditFunction(link){
     console.log("editando",link);
@@ -133,10 +129,21 @@ export class DashboardComponent implements OnInit {
   }
 
   insertTwitter(){
-    //this.dataService.updateUser({twitterUsername : this.user.twitterUsername}).subscribe((success)=>{console.log(JSON.stringify(success))})
-    console.log("estoy intentando meter esto",this.twitterNuevo)
-    this.dataService.newLink(this.twitterNuevo).subscribe((success)=>{console.log("he metido uno nuevo",JSON.stringify(success))})
+    this.dataService.newLink(this.twitterNuevo).subscribe((success)=>{JSON.stringify(success);;this.links.push(success.link)})
+    this.toasterService.pop({ type: 'success',
+                              title: 'Twitter añadido correctamente',
+                              body: "El usuario de twitter:"+this.twitterNuevo.twitterUsername+" se ha añadido correctamente"});
   }
+
+  borrarLink(link){
+    this.dataService.borrarLink(link).subscribe((success)=>{
+      //reasigno links en vez de hacerle directamente filter para que me detecte los cambios y me recargue la vista
+      this.links = this.links.filter(item => item._id != link._id)
+      this.toasterService.pop({type: 'success',
+                              title: 'Elemento borrado correctamente'});
+    })
+  }
+
 
   insertFacebook(tipo){
     switch(tipo) { 
@@ -201,6 +208,19 @@ export class DashboardComponent implements OnInit {
     this.avatarUrl = 'https://www.gravatar.com/avatar/'+hash+'?s=200&d=retro'
   }
 
+  loadScripts() {
+    const dynamicScripts = [
+     '../../../assets/js/core/popper.min.js'
+    ];
+    for (let i = 0; i < dynamicScripts.length; i++) {
+      const node = document.createElement('script');
+      node.src = dynamicScripts[i];
+      node.type = 'text/javascript';
+      node.async = false;
+      node.charset = 'utf-8';
+      document.getElementsByTagName('head')[0].appendChild(node);
+    }
+  }
 
 
 }

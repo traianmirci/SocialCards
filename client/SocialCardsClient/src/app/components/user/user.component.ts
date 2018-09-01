@@ -21,6 +21,8 @@ export class UserComponent implements OnInit {
     picture: "",
     biography: "",
     username: "",
+    gravatar: "",
+    avatar: "",
   };
 
   links: Link[];
@@ -98,8 +100,17 @@ error:Boolean;
 
   }
 
-  cambiarImagen(link){
-    console.log(link)
+  cambiarImagenPerfil(avatar){
+    console.log("voy a cambiar a ",avatar)
+    this.dataService.updateUserAvatar({avatar}).subscribe((respuesta)=>{
+      this.user.avatar = respuesta.userUpdated.avatar;
+      var toast : Toast = {
+        type: 'success',
+        title: 'Imagen cambiada',
+        body: "La imagen de tu perfil se ha modificado correctamente",
+        };
+      this.toasterService.pop(toast);;})
+    console.log("resultado",this.user.avatar)
   }
 
   getGravatarUrl(){

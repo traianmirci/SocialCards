@@ -71,6 +71,16 @@ export class DataService {
     
   }
 
+  borrarLink(link){
+    console.log("hago- http://localhost:3000/api/link/"+link._id)
+
+    return this.http.delete<any>('http://localhost:3000/api/link/'+link._id)
+  }
+  
+  updateUserAvatar(avatarUrl){
+    return this.http.put<any>('http://localhost:3000/api/user/updateUserAvatar',avatarUrl)
+  }
+
   
   //INSTAGRAM
 

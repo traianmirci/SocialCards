@@ -36,6 +36,9 @@ import {ToasterModule, ToasterService} from 'angular2-toaster';
 import { FacebookModule } from 'ngx-facebook';
 import { SafePipe } from './pipes/safe.pipe';
 
+import { TooltipModule } from 'ng2-tooltip-directive';
+
+
 
 
 
@@ -85,7 +88,8 @@ const appRoutes: Routes = [
     AngularFontAwesomeModule,
     BrowserAnimationsModule,
      ToasterModule.forRoot(),
-     FacebookModule.forRoot()
+     FacebookModule.forRoot(),
+     TooltipModule 
 
   ],
   providers: [

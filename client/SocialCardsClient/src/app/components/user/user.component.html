@@ -8,8 +8,8 @@
         <div class="col-md-8">
           <div class="card">
             <div class="card-header card-header-primary">
-              <h4 class="card-title">Edit Profile</h4>
-              <p class="card-category">Complete your profile</p>
+              <h4 class="card-title">Editar Usuario</h4>
+              <p class="card-category">Completa tu perfil</p>
             </div>
             <div class="card-body">
               <form>
@@ -325,12 +325,6 @@
                           <div class="ripple-container"></div>
                         <div class="ripple-container"></div></a>
                       </li>
-                      <li class="nav-item">
-                        <a class="nav-link" href="#facebook" data-toggle="tab">
-                          <i class="fa fa-facebook-square fa-lg"></i> Facebook
-                          <div class="ripple-container"></div>
-                        <div class="ripple-container"></div></a>
-                      </li>
                     </ul>
                   </div>
                 </div>
@@ -348,7 +342,7 @@
                                     </p>
                                     <div class="form-row text-center">
                                         <div class="col-12">
-                                          <button type="button" class="btn btn-sm btn-toggle" data-toggle="button" aria-pressed="false" autocomplete="off" (click)="cambiarImagen(gravatarImage)">
+                                          <button type="button"  (click)="cambiarImagenPerfil(user.gravatar)" [ngClass]="(user.gravatar == user.avatar)?'btn btn-sm btn-toggle active focus':'btn btn-sm btn-toggle' " class="" data-toggle="button" aria-pressed="false" autocomplete="off" >
                                             <div class="handle"></div>
                                           </button>
                                         </div>
@@ -370,7 +364,8 @@
                                   </p>
                                   <div class="form-row text-center">
                                       <div class="col-12">
-                                        <button type="button" class="btn btn-sm btn-toggle" data-toggle="button" aria-pressed="false" autocomplete="off" (click)="cambiarImagen(link.instagram.profile_picture)">
+                                        <button type="button"  [ngClass]="(link.instagram.profile_picture == user.avatar)?'btn btn-sm btn-toggle active focus':'btn btn-sm btn-toggle' " class="" (click)="cambiarImagenPerfil(link.instagram.profile_picture)"  data-toggle="button" aria-pressed="false" autocomplete="off" >
+                                          
                                           <div class="handle"></div>
                                         </button>
                                       </div>
@@ -393,7 +388,7 @@
                                     </p>
                                     <div class="form-row text-center">
                                         <div class="col-12">
-                                          <button type="button" class="btn btn-sm btn-toggle" data-toggle="button" aria-pressed="false" autocomplete="off" (click)="cambiarImagen('https://avatars.io/twitter/'+link.twitter.username+'/medium')">
+                                          <button type="button" (click)="cambiarImagenPerfil('https://avatars.io/twitter/'+link.twitter.username+'/medium')" [ngClass]="('https://avatars.io/twitter/'+link.twitter.username+'medium' == user.avatar)?'btn btn-sm btn-toggle active focus':'btn btn-sm btn-toggle' " class="" data-toggle="button" aria-pressed="false" autocomplete="off">
                                             <div class="handle"></div>
                                           </button>
                                         </div>
@@ -404,20 +399,119 @@
                         </ng-container>
                     </div>
                   </div>
-                  <div class="tab-pane" id="facebook">
-                    <div class="d-flex flex-row mt-2">
-                    fb
+                </div>
+              </div>
+            </div>
+
+
+            <div class="card">
+              <div class="card-header card-header-tabs card-header-primary">
+                <div class="nav-tabs-navigation">
+                  <div class="nav-tabs-wrapper">
+                    <span class="nav-tabs-title">Foto cabecera:</span>
+                    <ul class="nav nav-tabs" data-tabs="tabs">
+                      <li class="nav-item">
+                          <a class="nav-link active show" href="#headerSC" data-toggle="tab">
+                            <i class="fa fa-user-circle fa-lg"></i> SocialCards
+                            <div class="ripple-container"></div>
+                          <div class="ripple-container"></div></a>
+                        </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="#headerUrl" data-toggle="tab">
+                          <i class="fa fa-instagram fa-lg"></i> Url
+                          <div class="ripple-container"></div>
+                        <div class="ripple-container"></div></a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="#headerFile" data-toggle="tab">
+                          <i class="fa fa-twitter fa-lg"></i> Sube tu imagen
+                          <div class="ripple-container"></div>
+                        <div class="ripple-container"></div></a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="tab-content">
+                  <div class="tab-pane active show" id="headerSC">
+                      <div class="row">
+                          <div class="col-md-4 col-lg-3 col-sm-4 col-6">
+                              <div class="card" >
+                                  <img *ngIf="gravatarImage" class="card-img-top" src="{{gravatarImage}}" alt="Card image cap">
+                                  <div class="card-body">
+                                    <p class="card-text text-center" style="text-overflow: ellipsis !important;text-overflow: ellipsis;white-space: nowrap;">
+                                      @{{user?.email}}
+                                    </p>
+                                    <div class="form-row text-center">
+                                        <div class="col-12">
+                                          <button type="button"  (click)="cambiarImagenPerfil(user.gravatar)" [ngClass]="(user.gravatar == user.avatar)?'btn btn-sm btn-toggle active focus':'btn btn-sm btn-toggle' " class="" data-toggle="button" aria-pressed="false" autocomplete="off" >
+                                            <div class="handle"></div>
+                                          </button>
+                                        </div>
+                                    </div>
+                                  </div>
+                                </div>
+                          </div>
+                      </div>
+                    </div>
+                  <div class="tab-pane" id="instagram">
+                    <div class="row">
+                      <ng-container *ngFor="let link of links;let i = index">
+                        <div class="col-md-4 col-lg-3 col-sm-4 col-6" *ngIf="link.type == 'instagram' " >
+                            <div class="card" >
+                                <img class="card-img-top" src="{{link.instagram.profile_picture}}" alt="Card image cap">
+                                <div class="card-body">
+                                  <p class="card-text text-center" style="text-overflow: ellipsis !important;text-overflow: ellipsis;white-space: nowrap;">
+                                    @{{link.instagram.username}}
+                                  </p>
+                                  <div class="form-row text-center">
+                                      <div class="col-12">
+                                        <button type="button"  [ngClass]="(link.instagram.profile_picture == user.avatar)?'btn btn-sm btn-toggle active focus':'btn btn-sm btn-toggle' " class="" (click)="cambiarImagenPerfil(link.instagram.profile_picture)"  data-toggle="button" aria-pressed="false" autocomplete="off" >
+                                          
+                                          <div class="handle"></div>
+                                        </button>
+                                      </div>
+                                  </div>
+                                </div>
+                              </div>
+                        </div>
+                      </ng-container>
+                    </div>
+                  </div>
+                  <div class="tab-pane" id="twitter">
+                    <div class="row">
+                      <ng-container *ngFor="let link of links;let i = index">
+                          <div class="col-md-4 col-lg-3 col-sm-4 col-6" *ngIf="link.type == 'twitter' " >
+                              <div class="card" >
+                                  <img class="card-img-top" src="https://avatars.io/twitter/{{link.twitter.username}}/medium" alt="Card image cap">
+                                  <div class="card-body">
+                                    <p class="card-text text-center" style="text-overflow: ellipsis !important;text-overflow: ellipsis;white-space: nowrap;">
+                                        @{{link.twitter.username}}
+                                    </p>
+                                    <div class="form-row text-center">
+                                        <div class="col-12">
+                                          <button type="button" (click)="cambiarImagenPerfil('https://avatars.io/twitter/'+link.twitter.username+'/medium')" [ngClass]="('https://avatars.io/twitter/'+link.twitter.username+'medium' == user.avatar)?'btn btn-sm btn-toggle active focus':'btn btn-sm btn-toggle' " class="" data-toggle="button" aria-pressed="false" autocomplete="off">
+                                            <div class="handle"></div>
+                                          </button>
+                                        </div>
+                                    </div>
+                                  </div>
+                                </div>
+                          </div>
+                        </ng-container>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
+
         </div>
         <div class="col-md-4">
           <div class="card card-profile">
-            <div class="card-avatar">
+            <div class="card-avatar" style="margin: -20px auto 0;">
               <a href="#pablo">
-                <img class="img" src="../assets/img/faces/marc.jpg">
+                <img class="img" *ngIf="user?.avatar" src="{{user.avatar}}">
               </a>
             </div>
             <div class="card-body">
@@ -426,19 +520,7 @@
               <p class="card-description">
                 {{user?.biography}}
               </p>
-              <a href="#pablo" class="btn btn-primary btn-round">Follow</a>
-
-              <p *ngFor="let link of links;let i = index">
-                <a *ngIf="link.type == 'twitter'" >
-                  <img src="https://avatars.io/twitter/{{link.twitter.username}}/medium" alt="">
-                </a>
-                <a *ngIf="link.type == 'instagram' " >
-                  <img src="{{link.instagram.profile_picture}}" alt="">
-                  
-                </a>
-              </p>
-
-
+              <a href="/{{user?.username}}" class="btn btn-primary btn-round">Ver mi perfil</a>
             </div>
           </div>
           

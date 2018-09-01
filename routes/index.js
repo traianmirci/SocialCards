@@ -25,6 +25,10 @@ api.delete('/user/:id', userController.deleteUser)
 api.post('/signUp', userController.signUp)
 api.post('/signIn', userController.signIn)
 
+//cambiar avatar
+api.put('/user/updateUserAvatar', userController.updateUserAvatar)
+
+
 //instagram
 api.get('/user/saveInstagram/:accesstoken/:postslimit',linkController.saveInstagram)
 api.get('/user/showInstagram/:accesstoken',userController.showInstagram)
