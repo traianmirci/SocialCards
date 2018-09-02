@@ -98,4 +98,15 @@ export class DataService {
   obtenerImagenPerfilInstagram(accesscode){
     return this.http.get<any>('http://localhost:3000/api/user/obtenerImagenPerfilInstagram/'.concat(accesscode))
   }
+
+
+  //link
+
+  updateLink(link){
+    return this.http.put<any>('http://localhost:3000/api/link',link)
+  }
+  toggleLink(link){
+    link.active = !link.active;
+    return this.http.put<any>('http://localhost:3000/api/link',link)
+  }
 }

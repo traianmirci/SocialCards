@@ -35,7 +35,7 @@ const LinkSchema = new mongoose.Schema({
     
     facebooktype: String, enum: ['fbpagina','fbvideo','fbpublicacion','fbcomentarios'],
 
-    youtubetype: String, enum: ['video','playlsit']
+    youtubetype: String, enum: ['video','playlist']
 
     
 

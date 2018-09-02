@@ -14,7 +14,7 @@
             <div class="col-md-6 ml-auto mr-auto">
               <div class="profile">
                 <div class="avatar">
-                  <img  src="https://scontent.cdninstagram.com/vp/0d6d4a227d713196552eb2ddd74c9b17/5C34CEB0/t51.2885-19/s150x150/14659248_1672680513062258_2627081892662345728_n.jpg" alt="Circle Image" class="img-raised rounded-circle img-fluid">
+                  <img  src="{{user?.avatar}}" alt="Circle Image" class="img-raised rounded-circle img-fluid">
                 </div>
                 <div class="name">
                   <h3 *ngIf="user?.name" class="title">{{user.name}}</h3>
@@ -39,7 +39,7 @@
           <div class="card-columns">
             <ng-container *ngIf="twitter">
                 <ng-container *ngFor="let tw of twitter">
-                  <ng-container *ngIf="tw.twitter.username != ''">
+                  <ng-container *ngIf="tw.twitter.username != '' && tw.active == true">
                       <div class="card">
                         <div class="card-header card-header-info">
                           <div class="card-title" style="text-align: center;margin-top: 0;">
@@ -57,7 +57,7 @@
             
             <ng-container *ngIf="facebook">
               <ng-container *ngFor="let fb of facebook">
-                <ng-container *ngIf="fb.url != ''">
+                <ng-container *ngIf="fb.url != '' && fb.active == true">
                   <ng-container *ngIf="fb.facebooktype == 'fbpagina'">
                     <div class="card">
                         <div class="card-header card-header-primary" style="    background: linear-gradient(60deg, #2666da, #0088a7);">
@@ -100,7 +100,7 @@
 
             <ng-container *ngIf="instagram">
               <ng-container *ngFor="let insta of instagram">
-                <ng-container *ngIf="insta.instagram.accesstoken != ''">
+                <ng-container *ngIf="insta.instagram.accesstoken != '' && insta.active == true">
                     <div class="card">
                       <div class="card-header card-header-primary">
                           <div class="card-title" style="text-align: center;margin-top: 0;">
@@ -132,7 +132,7 @@
 
             <ng-container *ngIf="youtube">
                 <ng-container *ngFor="let yt of youtube">
-                  <ng-container *ngIf="yt.url != ''">
+                  <ng-container *ngIf="yt.url != '' && yt.active == true">
                     <ng-container *ngIf="yt.youtubetype == 'video'">
                       <div class="card">
                           <div class="card-header card-header-danger">

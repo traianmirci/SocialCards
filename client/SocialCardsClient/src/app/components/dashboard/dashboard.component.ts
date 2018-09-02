@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { Link } from '../../models/link';
 import {ToasterModule, ToasterService, ToasterConfig,Toast} from 'angular2-toaster';
 import {Md5} from 'ts-md5/dist/md5';
+declare var $: any;
+
 
 
 
@@ -37,6 +39,10 @@ export class DashboardComponent implements OnInit {
     twitterUsername: "",
     twitterPostsLimit: 5,
   }
+
+  twitterEdit = {}
+  instagramEdit = {}
+
   instagramPostsLimit:string;
 
   facebookNuevo = {
@@ -46,6 +52,7 @@ export class DashboardComponent implements OnInit {
     facebooktype:"fbpagina",
     url:""
   }
+  facebookEdit = {}
 
   youtubeNuevo = {
     active: true,
@@ -54,7 +61,7 @@ export class DashboardComponent implements OnInit {
     youtubetype:"video",
     url:""
   }
-  
+  youtubeEdit = {}
   avatarUrl:any
   
 
@@ -122,12 +129,35 @@ export class DashboardComponent implements OnInit {
     this.dataService.newLink(this.linkNuevo).subscribe((success)=>{console.log(JSON.stringify(success));this.links.push(success.link)})
 
     
-  } 
+  }
+
   linkEditFunction(link){
     console.log("editando",link);
     this.linkEdit = link;
   }
 
+  twitterEditFunction(link){
+    console.log("editando",link);
+    //$("#modalEdit").modal('show');
+    //$('.nav-tabs a[href="#' + "twitterEdit" + '"]').tab('show');
+
+    this.twitterEdit = link
+  }
+
+  instagramEditFunction(link){
+    console.log("editando",link);
+    this.instagramEdit = link;
+  }
+
+  youtubeEditFunction(link){
+    console.log("editando",link);
+    this.youtubeEdit = link
+  }
+
+  facebookEditFunction(link){
+    console.log("editando",link);
+    this.facebookEdit = link
+  }
   insertTwitter(){
     this.dataService.newLink(this.twitterNuevo).subscribe((success)=>{JSON.stringify(success);;this.links.push(success.link)})
     this.toasterService.pop({ type: 'success',
@@ -220,6 +250,20 @@ export class DashboardComponent implements OnInit {
       node.charset = 'utf-8';
       document.getElementsByTagName('head')[0].appendChild(node);
     }
+  }
+
+  toggleLink(link){
+    this.dataService.toggleLink(link).subscribe((success)=>{
+      this.toasterService.pop({ type: 'success',
+      title: 'Link cambiado con éxito'});
+    })
+  }
+
+  updateLink(link){
+    this.dataService.updateLink(link).subscribe((success)=>{
+      this.toasterService.pop({ type: 'success',
+      title: 'Link cambiado con éxito'});
+    })
   }
 
 

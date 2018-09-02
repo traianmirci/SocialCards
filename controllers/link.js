@@ -6,6 +6,10 @@ const bcrypt = require('bcrypt-nodejs')
 const config = require('../config')
 var jwt = require('jwt-simple');
 const services = require('../services/')
+const https = require('https');
+const User = require('../models/user.js')
+
+
 
 function saveLink(req,res){
     //obtengo el id del usuario a partir del token
@@ -68,12 +72,11 @@ function getLinks(req,res){
 }
 
 function updateLink(req,res){
-    let idLink = req.params.id;
+    let idLink = req.body._id;
     let update = req.body
 
     Link.findByIdAndUpdate(idLink,update, (err, linkUpdated)=>{
         if(err) return res.status(500).send({ message: `Error en la actualización ${err}`})
-
         res.status(200).send({linkUpdated})
     })
 }
@@ -127,9 +130,29 @@ function saveInstagram(req,res){
         }
 
         res.status(200).send({link: linkStored})
+        obtenerUsernameInstagram(parametro,linkStored);
     })
 }
 
+//obtengo el username y lo guardo ya que el callback de instagram no me da el usuario,solo el accesscode
+function obtenerUsernameInstagram(parametro,linkStored){
+    let linkId = linkStored._id;
+    console.log("en busca de IG username,link id:",linkId)
+    https.get('https://api.instagram.com/v1/users/self?access_token='.concat(parametro), res2 => {
+        res2.setEncoding("utf8");
+        let body = "";
+        res2.on("data", data => {
+          body += data;
+        });
+        res2.on("end", () => {
+            var resultado = JSON.parse(body);
+            Link.findByIdAndUpdate(linkId, { $set: { "instagram.username": resultado.data.username }}, { new: true }, function (err, tank) {
+                if (err) console.log(err);
+                console.log(tank)
+                });
+        });
+      });
+}
 
 module.exports = {
     getLink,

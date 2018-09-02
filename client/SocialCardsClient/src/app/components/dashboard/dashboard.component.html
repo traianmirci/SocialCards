@@ -46,39 +46,93 @@
                               <td>
                                 <div class="form-check">
                                   <label class="form-check-label">
-                                    <input class="form-check-input" type="checkbox" value="" [checked]="link.active">
+                                    <input class="form-check-input" type="checkbox" value="" [checked]="link.active" (click)="toggleLink(link)">
                                     <span class="form-check-sign">
                                       <span class="check"></span>
                                     </span>
                                   </label>
-                                  <ng-container *ngIf="link.type == 'twitter'">
+                                  <!--ng-container *ngIf="link.type == 'twitter'">
                                       <i class="fa fa-twitter"></i>
                                   </ng-container>
                                   <ng-container *ngIf="link.type == 'link'">
                                     <i class="fa fa-link"></i>
-                                </ng-container>      
+                                </ng-container-->      
                                 </div>
                               </td> 
                               <ng-container *ngIf="link.type == 'twitter'">
-                                <td><i class="fa fa-twitter"></i>Username: {{link.twitter.username}}Límite de posts: {{link.twitter.postslimit}}</td>
+                                <td style="word-break:  break-all;">
+                                  <div>
+                                    <i class="fa fa-twitter fa-lg" style="color:blue"></i> @{{link.twitter.username}}
+                                  </div>
+                                  <div>
+                                    Últimos {{link.twitter.postslimit}} tweets
+                                  </div>
+                                </td>
                               </ng-container> 
                               <ng-container *ngIf="link.type == 'instagram'" >
-                                <td><i class="fa fa-instagram"></i>Falta Username Límite de posts: {{link.instagram.postslimit}} </td>
+                                <td style="word-break:  break-all;">
+                                  <div>
+                                    <i class="fa fa-instagram fa-lg" style="color:red"></i> @{{link.instagram.username}}
+                                  </div>
+                                  <div>
+                                    Últimas {{link.instagram.postslimit}} fotos
+                                  </div>
+                                </td>
                               </ng-container>  
                               <ng-container *ngIf="link.type == 'youtube'">
-                                <td><i class="fa fa-youtube"></i>Tipo: {{link.youtubetype}}Enlace: {{link.url}}</td>
+                                <td style="word-break:  break-all;">
+                                  <div>
+                                    <i class="fa fa-youtube fa-lg" style="color:red"></i>
+                                    <i *ngIf="link.youtubetype == 'video'" class="fa fa-video-camera" style="padding-left:3px;color: #ff000054;;"></i> 
+                                    <i *ngIf="link.youtubetype == 'playlist'" class="fa fa-list" style="padding-left:3px;color: #ff000054;;"></i> 
+                                    {{link.name}}
+                                  </div>
+                                  <div>
+                                    {{link.url}}
+                                  </div>
+                                </td>
                               </ng-container>  
                               <ng-container *ngIf="link.type == 'facebook'">
-                                <td><i class="fa fa-facebook-square"></i>Username: {{link.facebooktype}}Url: {{link.url}}</td>
+                                <td style="word-break:  break-all;">
+                                  <div>
+                                    <i class="fa fa-facebook-square fa-lg" style="color:blue">    </i>  
+                                    <i *ngIf="link.facebooktype == 'fbvideo'" class="fa fa-video-camera" style="padding-left:3px;color: #0000ff52;"></i> 
+                                    <i *ngIf="link.facebooktype == 'fbpagina'" class="fa fa-thumbs-up" style="padding-left:3px;color: #0000ff52;"></i> 
+                                    <i *ngIf="link.facebooktype == 'fbpublicacion'" class="fa fa-bars" style="padding-left:3px;color: #0000ff52;"></i> 
+                                    {{link.name}}
+                                  </div>
+                                  <div>
+                                      {{link.url}}
+                                  </div> 
+                                </td>
                               </ng-container>
                               <ng-container *ngIf="link.type == 'link'">
-                                <td> <img [src]="'https://www.google.com/s2/favicons?domain='+ link.url | safe" width="16" height="16"/> Name: {{link.name}} Url {{link.url}}</td>
+                                <td style="word-break:  break-all;">
+                                  <div>
+                                    <img [src]="'https://www.google.com/s2/favicons?domain='+ link.url | safe" width="16" height="16"/>  {{link.name}}
+                                  </div>
+                                  <div>
+                                    {{link.url}}
+                                  </div>
+                                </td>
                               </ng-container>  
 
                               <td class="td-actions text-right">
-                                <button type="button" tooltip="Editar" hide-delay="50" title="" theme="light" class="btn btn-primary btn-link btn-sm" data-original-title="Edit Task" (click)="linkEditFunction(link)" data-toggle="modal" data-target="#modalEditLink">
-                                  <i class="fa fa-pencil fa-fw"></i>
-                                </button>
+                                <button type="button" *ngIf="link.type == 'youtube'" tooltip="Editar" hide-delay="50" title="" theme="light" class="btn btn-primary btn-link btn-sm" data-original-title="Edit Task" (click)="youtubeEditFunction(link)" data-toggle="modal" data-target="#modalEditYoutube">
+                                    <i class="fa fa-pencil fa-fw"></i>
+                                  </button>
+                                  <button type="button" *ngIf="link.type == 'facebook'" tooltip="Editar" hide-delay="50" title="" theme="light" class="btn btn-primary btn-link btn-sm" data-original-title="Edit Task" (click)="facebookEditFunction(link)" data-toggle="modal" data-target="#modalEditFacebook">
+                                    <i class="fa fa-pencil fa-fw"></i>
+                                  </button>
+                                  <button type="button" *ngIf="link.type == 'instagram'" tooltip="Editar" hide-delay="50" title="" theme="light" class="btn btn-primary btn-link btn-sm" data-original-title="Edit Task" (click)="instagramEditFunction(link)" data-toggle="modal" data-target="#modalEditInstagram">
+                                    <i class="fa fa-pencil fa-fw"></i>
+                                  </button>
+                                  <button type="button" *ngIf="link.type == 'link'" tooltip="Editar" hide-delay="50" title="" theme="light" class="btn btn-primary btn-link btn-sm" data-original-title="Edit Task" (click)="linkEditFunction(link)" data-toggle="modal" data-target="#modalEditLink">
+                                    <i class="fa fa-pencil fa-fw"></i>
+                                  </button>
+                                  <button type="button" *ngIf="link.type == 'twitter'" tooltip="Editar" hide-delay="50" title="" theme="light" class="btn btn-primary btn-link btn-sm" data-original-title="Edit Task" (click)="twitterEditFunction(link)" data-toggle="modal" data-target="#modalEditTwitter">
+                                      <i class="fa fa-pencil fa-fw"></i>
+                                    </button>
                                 <button (click)="borrarLink(link)" type="button"  tooltip="Borrar" hide-delay="50" theme="light" title="" class="btn btn-danger btn-link btn-sm" data-original-title="Remove">
                                   <i class="fa fa-times"></i>
                                 </button>
@@ -177,8 +231,10 @@
                   <div class="card-body">
                     <div class="tab-content">
                       <div class="tab-pane active show" id="instagram">
-                        <a href="https://api.instagram.com/oauth/authorize/?client_id=895b3e9dd22745899699c8eae8e03a0e&redirect_uri=http://localhost:4200/storeinstagram&response_type=token">Conceder acceso</a>
-                        <input [(ngModel)]="instagramPostLimit" name="instagramPostLimit" type="text" id="instagramPostLimit" class="form-control" placeholder="post limit" required="" autofocus="">
+                        <div class="col-md-12 text-center">
+                            <a class="btn btn-primary" href="https://api.instagram.com/oauth/authorize/?client_id=895b3e9dd22745899699c8eae8e03a0e&redirect_uri=http://localhost:4200/storeinstagram&response_type=token">Conceder acceso</a>
+                        </div>
+                        
                       </div>
                       <div class="tab-pane" id="twitter">
                         <form action="" class="">
@@ -285,33 +341,148 @@
     <!-- MODAL-->
 
 
+
     <!-- Modal EDIT LINK-->
     <div class="modal fade" id="modalEditLink" tabindex="-1" role="dialog" aria-labelledby="modalEditLink" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Editar un enlace</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close" >
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <form action="" class="">
-              <label for="inputTitleLink" class="sr-only">Titulo</label>
-              <input [(ngModel)]="linkEdit.name" name="linkTitle" type="text" id="inputLinkName" class="form-control" placeholder="Titulo" required="" autofocus="">
-          
-              <label for="inputUrl" class="sr-only">Enlace</label>
-              <input [(ngModel)]="linkEdit.url" name="linkUrl" type="text" id="inputLinkUrl" class="form-control" placeholder="Enlace" required="">
-              </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" (click)="newLink()">Save changes</button>
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Editar un enlace</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close" >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form action="" class="">
+                <label for="inputTitleLink" class="sr-only">Titulo</label>
+                <input [(ngModel)]="linkEdit.name" name="linkTitle" type="text" id="inputLinkName" class="form-control" placeholder="Titulo" required="" autofocus="">
+            
+                <label for="inputUrl" class="sr-only">Enlace</label>
+                <input [(ngModel)]="linkEdit.url" name="linkUrl" type="text" id="inputLinkUrl" class="form-control" placeholder="Enlace" required="">
+                </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" (click)="updateLink(linkEdit)">Save changes</button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <!-- MODAL-->
+
+    <!-- Modal EDIT Twitter-->
+    <div class="modal fade" id="modalEditTwitter" tabindex="-1" role="dialog" aria-labelledby="modalEditLink" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Editar entrada de Twitter</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close" >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form action="" class="">
+                <label for="inputTitleLink" class="">Username</label>
+                <input *ngIf="twitterEdit.twitter" [(ngModel)]="twitterEdit.twitter.username" name="linkTitle" type="text" id="inputLinkName" class="form-control" placeholder="@user" required="" autofocus="">
+            <br>
+                <label for="inputUrl" class="">Posts a incluir</label>
+                <input  *ngIf="twitterEdit.twitter" [(ngModel)]="twitterEdit.twitter.postslimit" name="linkUrl" type="text" id="inputLinkUrl" class="form-control" placeholder="5" required="">
+                </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" (click)="updateLink(twitterEdit)">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+       <!-- Modal EDIT Instagram-->
+    <div class="modal fade" id="modalEditInstagram" tabindex="-1" role="dialog" aria-labelledby="modalEditLink" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Editar entrada de Instagram</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close" >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form action="" class="">
+                <label for="inputTitleLink" class="">Username</label>
+                <input *ngIf="instagramEdit.instagram" disabled="" [(ngModel)]="instagramEdit.instagram.username" name="linkTitle" type="text" id="inputLinkName" class="form-control" placeholder="@user" required="" autofocus="">
+            <br>
+                <label for="inputUrl" class="">Posts a incluir</label>
+                <input  *ngIf="instagramEdit.instagram" [(ngModel)]="instagramEdit.instagram.postslimit" name="linkUrl" type="text" id="inputLinkUrl" class="form-control" placeholder="5" required="">
+                </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" (click)="updateLink(instagramEdit)">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    <!-- Modal EDIT Facebook-->
+    <div class="modal fade" id="modalEditFacebook" tabindex="-1" role="dialog" aria-labelledby="modalEditLink" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 *ngIf="facebookEdit.facebooktype == 'fbpagina'" class="modal-title" id="exampleModalLabel">Editar pagina de Facebook</h5>
+              <h5 *ngIf="facebookEdit.facebooktype == 'fbvideo'"class="modal-title" id="exampleModalLabel">Editar video de Facebook</h5>
+              <h5 *ngIf="facebookEdit.facebooktype == 'fbpublicacion'"class="modal-title" id="exampleModalLabel">Editar post de Facebook</h5>
+
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close" >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form action="" class="">
+                <label for="inputTitleLink" class="">Name</label>
+                <input *ngIf="facebookEdit.facebooktype" [(ngModel)]="facebookEdit.name" name="linkTitle" type="text" id="inputLinkName" class="form-control" placeholder="Mi facebook" required="" autofocus="">
+                <br>
+                <label for="inputUrl" class="">Url</label>
+                <input  *ngIf="facebookEdit.facebooktype" [(ngModel)]="facebookEdit.url" name="linkUrl" type="text" id="inputLinkUrl" class="form-control" placeholder="5" required="">
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" (click)="updateLink(facebookEdit)">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- Modal EDIT Youtube-->
+    <div class="modal fade" id="modalEditYoutube" tabindex="-1" role="dialog" aria-labelledby="modalEditLink" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 *ngIf="youtubeEdit.youtubetype == 'video'" class="modal-title" id="exampleModalLabel">Editar video de Youtube</h5>
+              <h5 *ngIf="youtubeEdit.youtubetype == 'playlist'"class="modal-title" id="exampleModalLabel">Editar playlist de Youtube</h5>
+
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close" >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form action="" class="">
+                <label for="inputTitleLink" class="">Name</label>
+                <input *ngIf="youtubeEdit.youtubetype" [(ngModel)]="youtubeEdit.name" name="linkTitle" type="text" id="inputLinkName" class="form-control" placeholder="Mi facebook" required="" autofocus="">
+                <br>
+                <label for="inputUrl" class="">Url</label>
+                <input  *ngIf="youtubeEdit.youtubetype" [(ngModel)]="youtubeEdit.url" name="linkUrl" type="text" id="inputLinkUrl" class="form-control" placeholder="5" required="">
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" (click)="updateLink(youtubeEdit)">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
 
     <!--   Core JS Files   -->
   <script src="../../../assets/js/core/jquery.min.asdasjs" type="text/javascript"></script>

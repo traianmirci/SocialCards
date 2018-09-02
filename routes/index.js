@@ -42,7 +42,7 @@ api.get('/link',linkController.getLinks)
 //Crear un link
 api.post('/link', linkController.saveLink)
 //Actualizar link
-api.put('/link/:id', linkController.updateLink)
+api.put('/link', linkController.updateLink)
 //Borrar link
 api.delete('/link/:id', linkController.deleteLink)
 //devuelve los links de un email
