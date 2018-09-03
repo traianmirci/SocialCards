@@ -49,9 +49,9 @@ export class DashboardComponent implements OnInit {
   facebookNuevo = {
     active: true,
     type:"facebook",
-    contenido:"",
     facebooktype:"fbpagina",
-    url:""
+    url:"",
+    name:""
   }
   facebookEdit = {}
 
@@ -183,21 +183,21 @@ export class DashboardComponent implements OnInit {
         //this.facebookNuevo.contenido = `<div class="fb-post" data-href="`.concat(this.facebookNuevo.contenido).concat(`" data-width="500" data-show-text="true"><blockquote cite="https://www.facebook.com/20531316728/posts/10154009990506729/" class="fb-xfbml-parse-ignore">Publicada por <a href="https://www.facebook.com/facebook/">Facebook</a> en&nbsp;<a href="https://www.facebook.com/20531316728/posts/10154009990506729/">Jueves, 27 de agosto de 2015</a></blockquote></div>`;
         this.facebookNuevo.facebooktype = "fbpagina";
         console.log("el tipo es",this.facebookNuevo.facebooktype)
-        this.dataService.newLink(this.facebookNuevo).subscribe((success)=>{console.log("he metido uno nuevo",JSON.stringify(success))})
+        this.dataService.newLink(this.facebookNuevo).subscribe((success)=>{console.log("he metido uno nuevo",JSON.stringify(success),this.links.push(success.link))})
  
          break; 
       } 
       case "fbvideo": { 
         this.facebookNuevo.facebooktype = "fbvideo";
         console.log("el tipo es",this.facebookNuevo.facebooktype)
-        this.dataService.newLink(this.facebookNuevo).subscribe((success)=>{console.log("he metido uno nuevo",JSON.stringify(success))})
+        this.dataService.newLink(this.facebookNuevo).subscribe((success)=>{console.log("he metido uno nuevo",JSON.stringify(success),this.links.push(success.link))})
   
          break; 
       }
       case "fbpublicacion": { 
         this.facebookNuevo.facebooktype = "fbpublicacion";
         console.log("el tipo es",this.facebookNuevo.facebooktype)
-        this.dataService.newLink(this.facebookNuevo).subscribe((success)=>{console.log("he metido uno nuevo",JSON.stringify(success))})
+        this.dataService.newLink(this.facebookNuevo).subscribe((success)=>{console.log("he metido uno nuevo",JSON.stringify(success),this.links.push(success.link))})
 
         break; 
       }  
@@ -215,14 +215,14 @@ export class DashboardComponent implements OnInit {
       case "video": { 
         this.youtubeNuevo.youtubetype = "video";
         console.log("el tipo es",this.youtubeNuevo.youtubetype)
-        this.dataService.newLink(this.youtubeNuevo).subscribe((success)=>{console.log("he metido uno nuevo",JSON.stringify(success))})
+        this.dataService.newLink(this.youtubeNuevo).subscribe((success)=>{console.log("he metido uno nuevo",JSON.stringify(success),this.links.push(success.link))})
  
          break; 
       } 
       case "playlist": { 
         this.youtubeNuevo.youtubetype = "playlist";
         console.log("el tipo es",this.youtubeNuevo.youtubetype)
-        this.dataService.newLink(this.youtubeNuevo).subscribe((success)=>{console.log("he metido uno nuevo",JSON.stringify(success))})
+        this.dataService.newLink(this.youtubeNuevo).subscribe((success)=>{console.log("he metido uno nuevo",JSON.stringify(success),this.links.push(success.link))})
   
          break; 
       }

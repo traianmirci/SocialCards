@@ -37,6 +37,7 @@ import { FacebookModule } from 'ngx-facebook';
 import { SafePipe } from './pipes/safe.pipe';
 
 import { TooltipModule } from 'ng2-tooltip-directive';
+import { TwitterComponent } from './components/twitter/twitter.component';
 
 
 
@@ -78,7 +79,8 @@ const appRoutes: Routes = [
     ProfileComponent,
     NotFound404Component,
     StoreinstagramComponent,
-    SafePipe
+    SafePipe,
+    TwitterComponent
   ],
   imports: [
     BrowserModule,

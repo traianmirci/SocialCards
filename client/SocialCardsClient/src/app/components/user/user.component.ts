@@ -40,11 +40,11 @@ export class UserComponent implements OnInit {
 
     this.dataService.getLoggedUser().subscribe((user)=>{
       this.user = user.user;
-      console.log("mi user",this.user)
-      this.getGravatarUrl()
+      console.log("mi user",this.user);
+      this.getGravatarUrl();
+      this.getLinksUsuario();
     })
 
-    this.dataService.getLinksUser(this.user.username).subscribe((links)=>{this.links = links;this.obtenerImagenesInstagram();})
     
   }
 
@@ -116,7 +116,11 @@ error:Boolean;
   getGravatarUrl(){
     console.log("el email es",this.user.email)
     let hash = Md5.hashStr(this.user.email.toString())
-    this.gravatarImage = 'https://www.gravatar.com/avatar/'+hash+'?s=200&d=retro'
-    
+    this.gravatarImage = 'https://www.gravatar.com/avatar/'+hash+'?s=200&d=retro'    
+  }
+
+  getLinksUsuario(){
+    this.dataService.getLinksUser(this.user.username).subscribe((links)=>{this.links = links;this.obtenerImagenesInstagram();})
+
   }
 }

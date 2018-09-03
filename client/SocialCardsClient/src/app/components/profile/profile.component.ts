@@ -81,7 +81,6 @@ export class ProfileComponent implements OnInit {
     FB.AppEvents.logPageView();
 }
 
-
 (function(d, s, id){
   var js, fjs = d.getElementsByTagName(s)[0];
   if (d.getElementById(id)) {return;}
@@ -89,6 +88,7 @@ export class ProfileComponent implements OnInit {
   js.src = "https://connect.facebook.net/en_US/sdk.js";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
+
 
  
   }
@@ -155,6 +155,9 @@ export class ProfileComponent implements OnInit {
           element.url = "https://www.facebook.com/plugins/video.php?href="+ encodeURIComponent(element.url)+"&width=297&show_text=false&appId=636914473329974&height=166" 
         }else if(element.facebooktype == "fbpublicacion"){
           element.url = "https://www.facebook.com/plugins/post.php?href="+ encodeURIComponent(element.url)+"&width=297&show_text=false&appId=636914473329974&height=326" 
+        }else if(element.facebooktype == "fbpagina"){
+          element.url =  "https://www.facebook.com/plugins/page.php?href="+ encodeURIComponent(element.url)+"&tabs=timeline&width=297&height=500&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=true&appId=636914473329974"
+                       
         }
         this.facebook.push(element)
       }else if(element.type == "youtube"){
@@ -185,10 +188,8 @@ export class ProfileComponent implements OnInit {
         )
 
       }
-    });
-
-    
-    
+    });   
+  
   }
 
   sacarTwitter(){
@@ -199,26 +200,10 @@ export class ProfileComponent implements OnInit {
 
   //para el script de twitter
   ngAfterViewInit () {
-    !function(d,s,id){
-        var js: any,
-            fjs=d.getElementsByTagName(s)[0],
-            p='https';
-        if(!d.getElementById(id)){
-            js=d.createElement(s);
-            js.id=id;
-            js.src=p+"://platform.twitter.com/widgets.js";
-            fjs.parentNode.insertBefore(js,fjs);
-            console.log('queque',fjs)
-
-        }
-    }
-    (document,"script","twitter-wjs");   
-    
-
-  
-
     
   }
+
+  
 }
 
 function sanearUrl(url){

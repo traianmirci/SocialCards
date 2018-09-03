@@ -16,11 +16,13 @@
                 <div class="row">
                   <div class="col-md-6">
                     <div class="form-group bmd-form-group">
+                      <label>Usuario</label>
                       <input  [(ngModel)]="user.username" name="username" type="text" class="form-control">
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="form-group bmd-form-group">
+                      <label>E-mail</label>
                       <input [(ngModel)]="user.email" type="text" class="form-control" name="email" disabled="" type="text" class="form-control">
                     </div>
                   </div>
@@ -28,11 +30,13 @@
                 <div class="row">
                   <div class="col-md-6">
                     <div class="form-group bmd-form-group">
+                      <label>Nombre</label>
                       <input [(ngModel)]="user.name" name="name" type="text" class="form-control">
                     </div>
                   </div>
                   <div class="col-md-6">
                       <div class="form-group bmd-form-group">
+                        <label>Ocupación</label>
                         <input [(ngModel)]="user.occupation" name="occupation" type="text" class="form-control" placeholder="Ocupación">
                       </div>
                     </div>
@@ -40,6 +44,7 @@
                 <div class="row">
                   <div class="col-md-12">
                     <div class="form-group bmd-form-group">
+                        <label>País</label>
                         <select [(ngModel)]="user.country" class="form-control" name="pais">
                             <option value="Elegir" id="AF">País</option>
                             <option value="Afganistán" id="AF">Afganistán</option>
@@ -295,7 +300,7 @@
                 </div>
 
 
-                <button (click)="updateUser()" type="submit" class="btn btn-primary pull-right">Update Profile</button>
+                <button (click)="updateUser()" type="submit" class="btn btn-primary pull-right">Actualizar perfil</button>
                 <div class="clearfix"></div>
               </form>
             </div>

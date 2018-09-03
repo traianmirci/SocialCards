@@ -32,7 +32,7 @@ export class RegisterComponent implements OnInit {
     .subscribe(
       res => {
         localStorage.setItem('token', res.token),
-        this._router.navigate(['/dashboard'])
+        this._router.navigate(['/user'])
       },
       err =>{
         if(err.status == 409){
