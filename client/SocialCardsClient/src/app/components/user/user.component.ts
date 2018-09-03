@@ -23,8 +23,11 @@ export class UserComponent implements OnInit {
     username: "",
     gravatar: "",
     avatar: "",
+    header: ""
   };
 
+  headerNuevoDesdeUrl: "";
+  
   links: Link[];
 
   isEdit:boolean = false;
@@ -111,6 +114,17 @@ error:Boolean;
         };
       this.toasterService.pop(toast);;})
     console.log("resultado",this.user.avatar)
+  }
+
+  cambiarHeaderPerfil(header){
+    this.dataService.updateUserAvatar({header}).subscribe((respuesta)=>{
+      this.user.header = respuesta.userUpdated.header;
+      var toast : Toast = {
+        type: 'success',
+        title: 'Imagen cambiada',
+        body: "La imagen de tu perfil se ha modificado correctamente",
+        };
+      this.toasterService.pop(toast);;})
   }
 
   getGravatarUrl(){

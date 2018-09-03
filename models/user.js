@@ -21,7 +21,8 @@ const UserSchema = new mongoose.Schema({
     twitterUsername: String,
     username: String,
     avatar: String,
-    gravatar: String
+    gravatar: String,
+    header: String
 
 })
 

@@ -38,6 +38,7 @@ import { SafePipe } from './pipes/safe.pipe';
 
 import { TooltipModule } from 'ng2-tooltip-directive';
 import { TwitterComponent } from './components/twitter/twitter.component';
+import { StylePipe } from './pipes/style.pipe';
 
 
 
@@ -80,7 +81,8 @@ const appRoutes: Routes = [
     NotFound404Component,
     StoreinstagramComponent,
     SafePipe,
-    TwitterComponent
+    TwitterComponent,
+    StylePipe
   ],
   imports: [
     BrowserModule,

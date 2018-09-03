@@ -6,6 +6,7 @@ import { Link } from '../../models/link';
 import * as $ from 'jquery';
 import { FacebookService, InitParams } from 'ngx-facebook';
 import { DomSanitizer } from '@angular/platform-browser';
+
  
 
 declare var jquery:any;
@@ -55,8 +56,9 @@ export class ProfileComponent implements OnInit {
     youtubetype:"video",
     url:""
   }]
-  
-  videocode = "hz8SPiw-_MQ"
+
+  videocode = "hz8SPiw-_MQ";
+
 
   constructor(private dataService:DataService,private _router: Router,private fb: FacebookService,public sanitizer: DomSanitizer) { 
     /*let initParams: InitParams = {
@@ -102,6 +104,7 @@ export class ProfileComponent implements OnInit {
         displayUser(res);
         console.log("xx",res.user[0])
         this.user = res.user[0]
+        
         console.log('ee',this.user)
         this.getLinks();
       },
@@ -124,6 +127,9 @@ export class ProfileComponent implements OnInit {
 
   }
 
+  getHeader() {
+    
+  }
   getLinks() {      
     this.dataService.getLinksUser(this.user.username).subscribe((links)=>{
       this.links = links;

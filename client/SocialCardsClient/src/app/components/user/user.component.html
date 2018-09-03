@@ -343,7 +343,7 @@
                                   <img *ngIf="gravatarImage" class="card-img-top" src="{{gravatarImage}}" alt="Card image cap">
                                   <div class="card-body">
                                     <p class="card-text text-center" style="text-overflow: ellipsis !important;text-overflow: ellipsis;white-space: nowrap;">
-                                      @{{user?.email}}
+                                      {{user?.email}}
                                     </p>
                                     <div class="form-row text-center">
                                         <div class="col-12">
@@ -423,13 +423,7 @@
                         </li>
                       <li class="nav-item">
                         <a class="nav-link" href="#headerUrl" data-toggle="tab">
-                          <i class="fa fa-instagram fa-lg"></i> Url
-                          <div class="ripple-container"></div>
-                        <div class="ripple-container"></div></a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" href="#headerFile" data-toggle="tab">
-                          <i class="fa fa-twitter fa-lg"></i> Sube tu imagen
+                          <i class="fa fa-link fa-lg"></i> Url
                           <div class="ripple-container"></div>
                         <div class="ripple-container"></div></a>
                       </li>
@@ -443,14 +437,95 @@
                       <div class="row">
                           <div class="col-md-4 col-lg-3 col-sm-4 col-6">
                               <div class="card" >
-                                  <img *ngIf="gravatarImage" class="card-img-top" src="{{gravatarImage}}" alt="Card image cap">
+                                  <img class="card-img-top" src="../assets/img/thumbnails/bg7_tn.jpg" alt="Card image cap">
                                   <div class="card-body">
-                                    <p class="card-text text-center" style="text-overflow: ellipsis !important;text-overflow: ellipsis;white-space: nowrap;">
-                                      @{{user?.email}}
-                                    </p>
                                     <div class="form-row text-center">
                                         <div class="col-12">
-                                          <button type="button"  (click)="cambiarImagenPerfil(user.gravatar)" [ngClass]="(user.gravatar == user.avatar)?'btn btn-sm btn-toggle active focus':'btn btn-sm btn-toggle' " class="" data-toggle="button" aria-pressed="false" autocomplete="off" >
+                                          <button type="button"  (click)="cambiarHeaderPerfil('../assets/img/bg7.jpg')" [ngClass]="(user.header == '../assets/img/bg7.jpg')?'btn btn-sm btn-toggle active focus':'btn btn-sm btn-toggle' " class="" data-toggle="button" aria-pressed="false" autocomplete="off" >
+                                            <div class="handle"></div>
+                                          </button>
+                                        </div>
+                                    </div>
+                                  </div>
+                                </div>
+                          </div>
+                          <div class="col-md-4 col-lg-3 col-sm-4 col-6">
+                              <div class="card" >
+                                  <img class="card-img-top" src="../assets/img/thumbnails/bg_tn.jpg" alt="Card image cap">
+                                  <div class="card-body">
+                                    <div class="form-row text-center">
+                                        <div class="col-12">
+                                          <button type="button"  (click)="cambiarHeaderPerfil('../assets/img/bg.jpg')" [ngClass]="(user.header == '../assets/img/bg.jpg')?'btn btn-sm btn-toggle active focus':'btn btn-sm btn-toggle' " class="" data-toggle="button" aria-pressed="false" autocomplete="off" >
+                                            <div class="handle"></div>
+                                          </button>
+                                        </div>
+                                    </div>
+                                  </div>
+                                </div>
+                          </div>
+                          <div class="col-md-4 col-lg-3 col-sm-4 col-6">
+                              <div class="card" >
+                                  <img class="card-img-top" src="../assets/img/thumbnails/bg2_tn.jpg" alt="Card image cap">
+                                  <div class="card-body">
+                                    <div class="form-row text-center">
+                                        <div class="col-12">
+                                          <button type="button"  (click)="cambiarHeaderPerfil('../assets/img/bg2.jpg')" [ngClass]="(user.header == '../assets/img/bg2.jpg')?'btn btn-sm btn-toggle active focus':'btn btn-sm btn-toggle' " class="" data-toggle="button" aria-pressed="false" autocomplete="off" >
+                                            <div class="handle"></div>
+                                          </button>
+                                        </div>
+                                    </div>
+                                  </div>
+                                </div>
+                          </div>
+                          <div class="col-md-4 col-lg-3 col-sm-4 col-6">
+                              <div class="card" >
+                                  <img class="card-img-top" src="../assets/img/thumbnails/bg3_tn.jpg" alt="Card image cap">
+                                  <div class="card-body">
+                                    <div class="form-row text-center">
+                                        <div class="col-12">
+                                          <button type="button"  (click)="cambiarHeaderPerfil('../assets/img/bg3.jpg')" [ngClass]="(user.header == '../assets/img/bg3.jpg')?'btn btn-sm btn-toggle active focus':'btn btn-sm btn-toggle' " class="" data-toggle="button" aria-pressed="false" autocomplete="off" >
+                                            <div class="handle"></div>
+                                          </button>
+                                        </div>
+                                    </div>
+                                  </div>
+                                </div>
+                          </div>
+                          <div class="col-md-4 col-lg-3 col-sm-4 col-6">
+                              <div class="card" >
+                                  <img class="card-img-top" src="../assets/img/thumbnails/city_tn.jpg" alt="Card image cap">
+                                  <div class="card-body">
+                                    <div class="form-row text-center">
+                                        <div class="col-12">
+                                          <button type="button"  (click)="cambiarHeaderPerfil('../assets/img/city.jpg')" [ngClass]="(user.header == '../assets/img/city.jpg')?'btn btn-sm btn-toggle active focus':'btn btn-sm btn-toggle' " class="" data-toggle="button" aria-pressed="false" autocomplete="off" >
+                                            <div class="handle"></div>
+                                          </button>
+                                        </div>
+                                    </div>
+                                  </div>
+                                </div>
+                          </div>
+                          <div class="col-md-4 col-lg-3 col-sm-4 col-6">
+                              <div class="card" >
+                                  <img class="card-img-top" src="../assets/img/thumbnails/city-profile_tn.jpg" alt="Card image cap">
+                                  <div class="card-body">
+                                    <div class="form-row text-center">
+                                        <div class="col-12">
+                                          <button type="button"  (click)="cambiarHeaderPerfil('../assets/img/city-profile.jpg')" [ngClass]="(user.header == '../assets/img/city-profile.jpg')?'btn btn-sm btn-toggle active focus':'btn btn-sm btn-toggle' " class="" data-toggle="button" aria-pressed="false" autocomplete="off" >
+                                            <div class="handle"></div>
+                                          </button>
+                                        </div>
+                                    </div>
+                                  </div>
+                                </div>
+                          </div>
+                          <div class="col-md-4 col-lg-3 col-sm-4 col-6">
+                              <div class="card" >
+                                  <img class="card-img-top"  src="../assets/img/thumbnails/profile_city_tn.jpg" alt="Card image cap">
+                                  <div class="card-body">
+                                    <div class="form-row text-center">
+                                        <div class="col-12">
+                                          <button type="button"  (click)="cambiarHeaderPerfil('../assets/img/profile_city.jpg')" [ngClass]="(user.header == '../assets/img/profile_city.jpg')?'btn btn-sm btn-toggle active focus':'btn btn-sm btn-toggle' " class="" data-toggle="button" aria-pressed="false" autocomplete="off" >
                                             <div class="handle"></div>
                                           </button>
                                         </div>
@@ -460,51 +535,34 @@
                           </div>
                       </div>
                     </div>
-                  <div class="tab-pane" id="instagram">
+                  <div class="tab-pane" id="headerUrl">
                     <div class="row">
-                      <ng-container *ngFor="let link of links;let i = index">
-                        <div class="col-md-4 col-lg-3 col-sm-4 col-6" *ngIf="link.type == 'instagram' " >
+                        <div class="col-md-4 offset-md-4">
                             <div class="card" >
-                                <img class="card-img-top" src="{{link.instagram.profile_picture}}" alt="Card image cap">
+                                <img class="card-img-top" *ngIf="user.header.includes('http')" src="{{user?.header}}" alt="Card image cap">
+                                <img class="card-img-top img-fluid" *ngIf="!user.header.includes('http')" src="../assets/img/loading.gif" alt="Card image cap">
                                 <div class="card-body">
                                   <p class="card-text text-center" style="text-overflow: ellipsis !important;text-overflow: ellipsis;white-space: nowrap;">
-                                    @{{link.instagram.username}}
+                                    <label>URL</label>
+                                    <input  [(ngModel)]="headerNuevoDesdeUrl" name="username" type="text" class="form-control">
                                   </p>
                                   <div class="form-row text-center">
                                       <div class="col-12">
-                                        <button type="button"  [ngClass]="(link.instagram.profile_picture == user.avatar)?'btn btn-sm btn-toggle active focus':'btn btn-sm btn-toggle' " class="" (click)="cambiarImagenPerfil(link.instagram.profile_picture)"  data-toggle="button" aria-pressed="false" autocomplete="off" >
+                                        <button type="button"  *ngIf="user.header.includes('http') && headerNuevoDesdeUrl == user.header" [ngClass]="(user.header == user.header)?'btn btn-sm btn-toggle active focus':'btn btn-sm btn-toggle' " class=""   data-toggle="button" aria-pressed="false" autocomplete="off" >
                                           
                                           <div class="handle"></div>
                                         </button>
                                       </div>
+                                      <div class="col-12">
+                                          <button type="button" *ngIf="headerNuevoDesdeUrl?.includes('http') " [ngClass]="'button btn btn-primary' " class="button btn btn-primary" (click)="cambiarHeaderPerfil(headerNuevoDesdeUrl)"  data-toggle="button" aria-pressed="false" autocomplete="off" >
+                                            <div class="handle">Imagen desde URL</div>
+                                          </button>
+                                          
+                                        </div>
                                   </div>
                                 </div>
                               </div>
                         </div>
-                      </ng-container>
-                    </div>
-                  </div>
-                  <div class="tab-pane" id="twitter">
-                    <div class="row">
-                      <ng-container *ngFor="let link of links;let i = index">
-                          <div class="col-md-4 col-lg-3 col-sm-4 col-6" *ngIf="link.type == 'twitter' " >
-                              <div class="card" >
-                                  <img class="card-img-top" src="https://avatars.io/twitter/{{link.twitter.username}}/medium" alt="Card image cap">
-                                  <div class="card-body">
-                                    <p class="card-text text-center" style="text-overflow: ellipsis !important;text-overflow: ellipsis;white-space: nowrap;">
-                                        @{{link.twitter.username}}
-                                    </p>
-                                    <div class="form-row text-center">
-                                        <div class="col-12">
-                                          <button type="button" (click)="cambiarImagenPerfil('https://avatars.io/twitter/'+link.twitter.username+'/medium')" [ngClass]="('https://avatars.io/twitter/'+link.twitter.username+'medium' == user.avatar)?'btn btn-sm btn-toggle active focus':'btn btn-sm btn-toggle' " class="" data-toggle="button" aria-pressed="false" autocomplete="off">
-                                            <div class="handle"></div>
-                                          </button>
-                                        </div>
-                                    </div>
-                                  </div>
-                                </div>
-                          </div>
-                        </ng-container>
                     </div>
                   </div>
                 </div>
