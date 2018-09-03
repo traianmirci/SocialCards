@@ -8,6 +8,9 @@ var jwt = require('jwt-simple');
 const services = require('../services/')
 const https = require('https');
 const User = require('../models/user.js')
+var url  = require('url');
+var ObjectId = require('mongoose').Types.ObjectId; 
+
 
 
 
@@ -95,15 +98,26 @@ function deleteLink(req,res){
 }
 
 function getLinksUser(req,res){
-    var token = req.headers['authorization'].replace("Bearer ","");
-    var decoded = jwt.decode(token, 'clavetokensocialcards');
-    var idUsuario = decoded.sub;
+    
+    var usernameP = req.params.username
+    var usuario;
 
-    console.log('busco',idUsuario)
-    Link.find({user: idUsuario},(err,links)=>{
-        if (err) res.send(500).send(`Links no encontrados ${err}`)
-        res.status(200).send(links)
-    });
+    User.find({ username: usernameP},(err, user)=>{
+        if(err) return res.status(500).send({ message: `Error en la búsqueda ${err}`})
+        if(!user) return res.status(404).send({message: `El usuario no existe`})
+        if(user == 0 ) return res.status(404).send({message: `El usuario no existe`})
+        usuario = user;
+        if(usuario){
+            Link.find({user: new ObjectId(usuario[0]._id)},(err,links)=>{
+                if (err) res.send(500).send(`Links no encontrados ${err}`)
+                res.status(200).send(links)
+            });
+        }else{
+            console.log("joder")
+        }
+        
+    })
+        
 }
 
 function saveInstagram(req,res){

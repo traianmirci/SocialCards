@@ -44,7 +44,7 @@ export class UserComponent implements OnInit {
       this.getGravatarUrl()
     })
 
-    this.dataService.getLinksUser().subscribe((links)=>{this.links = links;this.obtenerImagenesInstagram();})
+    this.dataService.getLinksUser(this.user.username).subscribe((links)=>{this.links = links;this.obtenerImagenesInstagram();})
     
   }
 

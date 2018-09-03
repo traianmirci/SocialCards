@@ -29,8 +29,8 @@ export class DataService {
     return this.http.get<any>('http://localhost:3000/api/userByUsername/'.concat(username))
   }
 
-  getLinksUser(){
-    return this.http.get<any>('http://localhost:3000/api/linksUsuario/')
+  getLinksUser(username){
+    return this.http.get<any>('http://localhost:3000/api/linksUsuario/'+username)
   }
 
   registerUser(user){

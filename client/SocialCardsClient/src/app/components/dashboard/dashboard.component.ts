@@ -22,7 +22,8 @@ export class DashboardComponent implements OnInit {
     biography: "",
     twitterUsername: "",
     user: "",
-    email: " "
+    email: " ",
+    username: ""
     
   }
   linkNuevo = {
@@ -94,7 +95,6 @@ export class DashboardComponent implements OnInit {
     this.user.biography="";
     this.user.twitterUsername = "";
 
-    this.getLinks();
     this.getUser();
     this.dataService.getPrivado()
       .subscribe(
@@ -114,7 +114,7 @@ export class DashboardComponent implements OnInit {
   }
   
   getLinks() {      
-    this.dataService.getLinksUser().subscribe((links)=>{this.links = links;console.log(links)})
+    this.dataService.getLinksUser(this.user.username).subscribe((links)=>{this.links = links;console.log(links)})
   }
   getUser() {      
     this.dataService.getLoggedUser().subscribe((user)=>{
@@ -122,6 +122,8 @@ export class DashboardComponent implements OnInit {
       this.user = user.user;
       this.getAvatarUrl();
       console.log("y el usuario que dejo guardado",this.user)
+      this.getLinks();
+
     })
   }
   newLink(link){

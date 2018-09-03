@@ -103,7 +103,7 @@ export class ProfileComponent implements OnInit {
         console.log("xx",res.user[0])
         this.user = res.user[0]
         console.log('ee',this.user)
-        
+        this.getLinks();
       },
       err => {
         if (err.status == 404){
@@ -112,7 +112,7 @@ export class ProfileComponent implements OnInit {
       }
     )
     
-    this.getLinks();
+    
 
 
     function displayUser(user){
@@ -125,7 +125,7 @@ export class ProfileComponent implements OnInit {
   }
 
   getLinks() {      
-    this.dataService.getLinksUser().subscribe((links)=>{
+    this.dataService.getLinksUser(this.user.username).subscribe((links)=>{
       this.links = links;
       console.log(links)
       this.parsearLinks(this.links)
