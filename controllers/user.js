@@ -165,7 +165,9 @@ function signUp(req, res){
         gravatar: pgravatar,
         //asigno tambien avatar como gravatar para tener al principio un avatar,despues
         //el avatar se podra cambiando desde /user
-        avatar: pgravatar
+        avatar: pgravatar,
+        username: req.body.username,
+        nombre: req.body.nombre
     })
 
     User.findOne({email: req.body.email},(err,user)=>{

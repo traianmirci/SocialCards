@@ -1,65 +1,120 @@
-<body class="text-center"  >
-  <form class="form-signin" >
-    <img class="mb-4" src="https://getbootstrap.com/docs/4.1/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
-    <h1 class="h3 mb-3 font-weight-normal">Sign up</h1>
-    <label for="inputEmail" class="sr-only">Email address</label>
-    <input [(ngModel)]="registerUserData.email" name="email" type="email" id="inputEmail" class="form-control" placeholder="Email" required="" autofocus="">
+<link rel="stylesheet" type="text/css" href="../../../assets/css/material-kit.css" />
+<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
 
-    <label for="inputEmail" class="sr-only">Username</label>
-    <input [(ngModel)]="registerUserData.username" name="email" type="text" id="inputEmail" class="form-control" placeholder="Username" required="" autofocus="">
-
-    <label for="inputPassword" class="sr-only">Password</label>
-    <input [(ngModel)]="registerUserData.password" name="password" type="password" type="password" id="inputPassword" class="form-control" placeholder="Contraseña" required="">
-
-    <label for="inputPassword" class="sr-only">Password</label>
-    <input [(ngModel)]="registerUserData.password2" name="password2" type="password" id="inputPassword2" class="form-control" placeholder="Repita la contraseña" required="">
-    <div class="checkbox mb-3">
-      <label>
-        <input type="checkbox" value="remember-me"> Remember me
-      </label>
+<body class="login-page sidebar-collapse">
+    <div class="page-header header-filter" style="background-image: url('../assets/img/registro.jpg'); background-size: cover; background-position: top center;">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-4 col-md-6 ml-auto mr-auto">
+            <div class="card card-login">
+              <form class="form" method="" action="" style="height: auto !important;min-height: 550px;">
+                <div class="card-header card-header-primary text-center">
+                  <h4 class="card-title">Registro</h4>
+                </div>
+                <div class="card-body">
+                  <span class="bmd-form-group"><div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="material-icons">mail</i>
+                      </span>
+                    </div>
+                    <input [(ngModel)]="registerUserData.email" name="email" type="email" id="inputEmail" class="form-control" placeholder="Email" required="" autofocus="">
+                  </div></span>
+                  <span class="bmd-form-group"><div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="material-icons">account_circle</i>
+                      </span>
+                    </div>
+                    <input [(ngModel)]="registerUserData.username" name="email" type="text" id="inputUsername" class="form-control" placeholder="Usuario" required="" autofocus="">
+                  </div></span>
+                  <span class="bmd-form-group"><div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          <i class="material-icons">face</i>
+                        </span>
+                      </div>
+                      <input [(ngModel)]="registerUserData.name" name="email" type="text" id="inputName" class="form-control" placeholder="Tu nombre" required="" autofocus="">
+                    </div></span>
+                  <span class="bmd-form-group"><div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          <i class="material-icons">lock_outline</i>
+                        </span>
+                      </div>
+                      <input [(ngModel)]="registerUserData.password" name="password" type="password" type="password" id="inputPassword" class="form-control" placeholder="Contraseña" required="">
+                    </div></span>
+                    <span class="bmd-form-group"><div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">
+                            <i class="material-icons">lock_outline</i>
+                          </span>
+                        </div>
+                        <input [(ngModel)]="registerUserData.password2" name="password2" type="password" id="inputPassword2" class="form-control" placeholder="Repita la contraseña" required="">
+                      </div></span>
+                </div>
+                <div class="footer text-center">
+                  <div class="row">
+                    <div class="col-md-10 offset-md-1">
+                        <button (click)="registerUser()" class="btn btn-lg btn-primary btn-block" type="submit">Registrarse</button>
+                    </div>
+                    <br>
+                    <div class="col-md-10 offset-md-1">
+                        <p class="description text-center">¿Ya tienes cuenta?</p>
+                        <p class="description text-center"><a routerLink="/login">Inicia sesión aquí</a></p>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="footer footer-default">
+          <div class="container">
+            <nav class="float-left">
+              <ul>
+                <li>
+                  <a href="https://github.com/traianmirci/">
+                    <i class="material-icons">code</i>Traian Alexandru Mirci
+                  </a>
+                </li>
+                <li>
+                  <a href="mailto:traianmirci@gmail.com">
+                      traianmirci@gmail.com
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                  </a>
+                </li>
+              </ul>
+            </nav>
+            <div class="copyright float-right">
+              © 2018, Traian Alexandru Mirci <i class="material-icons">school</i> 
+              <a href="https://www.eps.ua.es" target="_blank">Escuela Polítecnica Universidad de Alicante</a> 
+            </div>
+          </div>
+        </footer>
     </div>
-    <div  *ngIf="error" class="alert alert-danger" role="alert">
-      {{resultado}}
-    </div>
-
-    <button (click)="registerUser()" class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
-
-
-    <p class="mt-5 mb-3 text-muted">©2018 SocialCards</p>
-  </form>
-
-
-</body>
-
-<style>
-  .form-signin {
-  width: 100%;
-  max-width: 330px;
-  padding: 15px;
-  margin: auto;
-}
-.form-signin .checkbox {
-  font-weight: 400;
-}
-.form-signin .form-control {
-  position: relative;
-  box-sizing: border-box;
-  height: auto;
-  padding: 10px;
-  font-size: 16px;
-}
-.form-signin .form-control:focus {
-  z-index: 2;
-}
-.form-signin input[type="email"] {
-  margin-bottom: -2px;
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
-}
-.form-signin input[type="password"] {
-  margin-bottom: -2px;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-}
-
-</style>
+    <!--   Core JS Files   -->
+    <script src="../assets/js/core/jquery.min.js" type="text/javascript"></script>
+    <script src="../assets/js/core/popper.min.js" type="text/javascript"></script>
+    <script src="../assets/js/core/bootstrap-material-design.min.js" type="text/javascript"></script>
+    <script src="../assets/js/plugins/moment.min.js"></script>
+    <!--	Plugin for the Datepicker, full documentation here: https://github.com/Eonasdan/bootstrap-datetimepicker -->
+    <script src="../assets/js/plugins/bootstrap-datetimepicker.js" type="text/javascript"></script>
+    <!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
+    <script src="../assets/js/plugins/nouislider.min.js" type="text/javascript"></script>
+    <!--	Plugin for Sharrre btn -->
+    <script src="../assets/js/plugins/jquery.sharrre.js" type="text/javascript"></script>
+    <!-- Control Center for Material Kit: parallax effects, scripts for the example pages etc -->
+    <script src="../assets/js/material-kit.js?v=2.0.4" type="text/javascript"></script>
+  
+  
+  </body>

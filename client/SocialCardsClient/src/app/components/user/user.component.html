@@ -539,8 +539,8 @@
                     <div class="row">
                         <div class="col-md-4 offset-md-4">
                             <div class="card" >
-                                <img class="card-img-top" *ngIf="user.header.includes('http')" src="{{user?.header}}" alt="Card image cap">
-                                <img class="card-img-top img-fluid" *ngIf="!user.header.includes('http')" src="../assets/img/loading.gif" alt="Card image cap">
+                                <img class="card-img-top" *ngIf="user?.header && user?.header.includes('http')" src="{{user?.header}}" alt="Card image cap">
+                                <img class="card-img-top img-fluid" *ngIf="user?.header && !user?.header.includes('http')" src="../assets/img/loading.gif" alt="Card image cap">
                                 <div class="card-body">
                                   <p class="card-text text-center" style="text-overflow: ellipsis !important;text-overflow: ellipsis;white-space: nowrap;">
                                     <label>URL</label>
@@ -548,7 +548,7 @@
                                   </p>
                                   <div class="form-row text-center">
                                       <div class="col-12">
-                                        <button type="button"  *ngIf="user.header.includes('http') && headerNuevoDesdeUrl == user.header" [ngClass]="(user.header == user.header)?'btn btn-sm btn-toggle active focus':'btn btn-sm btn-toggle' " class=""   data-toggle="button" aria-pressed="false" autocomplete="off" >
+                                        <button type="button"  *ngIf="user?.header && user?.header.includes('http') && headerNuevoDesdeUrl == user.header" [ngClass]="(user.header == user.header)?'btn btn-sm btn-toggle active focus':'btn btn-sm btn-toggle' " class=""   data-toggle="button" aria-pressed="false" autocomplete="off" >
                                           
                                           <div class="handle"></div>
                                         </button>
@@ -591,8 +591,38 @@
         </div>
         
       </div>
+      
     </div>
-
+    <footer class="footer footer-default">
+        <div class="container">
+          <nav class="float-left">
+            <ul>
+              <li>
+                <a href="https://github.com/traianmirci/">
+                  <i class="material-icons">code</i>Traian Alexandru Mirci
+                </a>
+              </li>
+              <li>
+                <a href="mailto:traianmirci@gmail.com">
+                    traianmirci@gmail.com
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                </a>
+              </li>
+            </ul>
+          </nav>
+          <div class="copyright float-right">
+            © 2018, Traian Alexandru Mirci <i class="material-icons">school</i> 
+            <a href="https://www.eps.ua.es" target="_blank">Escuela Polítecnica Universidad de Alicante</a> 
+          </div>
+        </div>
+      </footer>
    <!-- Bootstrap core JavaScript
   ================================================== -->
   <!-- Placed at the end of the document so the pages load faster -->
